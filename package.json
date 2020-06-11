@@ -1,0 +1,19 @@
+{
+  "name": "client-aws-chat-randy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "parcel build public/index.html",
+    "start": "parcel public/index.html"
+  },
+  "keywords": [],
+  "author": "Noble Obioma",
+  "license": "MIT",
+  "dependencies": {
+    "parcel-bundler": "^1.12.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {},
+  "description": ""
+}
