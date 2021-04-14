@@ -1,9 +1,10 @@
 module.exports = {
-  entry: './client/index.js',
+  entry: ['babel-polyfill','./client/index.js'],
   output: {
     path: __dirname,
     filename: './public/bundle.js'
   },
+  mode: 'development', //!
   devtool: 'source-map',
   module: {
     rules: [
@@ -12,7 +13,10 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
         options: {
-          presets: ['react', 'es2015']
+          presets: [
+            '@babel/preset-react',
+            '@babel/preset-env'
+         ]
         }
       },
       // use the style-loader/css-loader combos for anything matching the .css extension
