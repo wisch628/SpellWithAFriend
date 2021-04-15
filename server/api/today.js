@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const Sample = require('../db/models/sample')
+const puppeteer = require('puppeteer');
+//const Sample = require('../db/models/sample')
 
 // router.get('/:id', async (req, res, next) => {
 //     try {
@@ -47,8 +48,15 @@ const Sample = require('../db/models/sample')
 
 router.get('/', async (req, res, next) => {
     try {
-        const allSamples = await Sample.findAll();
-        res.send(allSamples);
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        const url = 'https://www.nytimes.com/puzzles/spelling-bee'
+        await page.goto(url);
+        const dataToday = JSON.parse(await page.evaluate(
+            () => JSON.stringify(window.gameData.today)
+          ));
+        await browser.close();
+        res.send(dataToday);
     } catch (error) {
         next(error)
     }

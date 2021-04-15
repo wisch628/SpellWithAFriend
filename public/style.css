@@ -1,3 +1,140 @@
-body {
-    color: pink
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200&display=swap'); 
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto Slab', serif;
+}
+body{
+  text-align: center;
+}
+
+
+
+  .cell-bottom {
+    float: left;
+border-left: 30px solid #e6e6e6;
+border-top: 52px solid transparent;
+border-bottom: 52px solid transparent;
+  }
+
+  .cell-top {
+    float: left;
+border-right: 30px solid #e6e6e6;
+border-top: 52px solid transparent;
+border-bottom: 52px solid transparent;
+
+  }
+
+  .cell-center {
+  float: left;
+  width: 60px;
+  height: 104px;
+  background-color: #e6e6e6;
+  }
+
+ 
+
+.hex {
+  float: left;
+  margin-right: -26px;
+  margin-bottom: -50px;
+}
+
+.hex.odd {
+  padding-top: 53px;
+}
+
+.game-wrapper {
+  width: 300px;
+}
+
+.center .cell-center {
+  background-color: #f8cd04;
+}
+
+.center .cell-top {
+  border-right: 30px solid #f8cd04;
+}
+
+.center .cell-bottom {
+  border-left: 30px solid #f8cd04;
+}
+.special {
+  padding-left: 93.5px;
+}
+
+h5 {
+  text-align: center;
+  font-size: 21px;
+}
+
+.left-container {
+  margin: 50px 50px auto 100px;
+  
+}
+
+.right-container {
+  margin: auto;
+  border-radius: 10px;
+  border: 1px solid #e6e6e6;
+  height: 300px;
+  padding: 20px;
+  
+}
+
+.flex {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.game-container {
+  width: 500px;
+  margin: 30px auto auto 180px;
+}
+
+input {
+  outline: 0;
+  border-width: 0 0 .5px 0;
+  border-color: #e6e6e6;
+  font-size: 30px;
+  margin: 0px auto auto auto;
+  text-align: center;
+}
+
+#alert{
+  color: white;
+  width: 120px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 10px;
+  font-family: arial;
+  font-weight: bold;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.white{
+  background-color: white;
+}
+
+.black{
+  background-color: black;
+}
+
+.yellow{
+  background-color: #f8cd04;
+}
+
+.correct{
+  text-align: left;
+  border-bottom: 1px solid #e6e6e6;
+  width: 90px;
+  margin: 10px;
+}
+
+.word-container {
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 40px;
 }

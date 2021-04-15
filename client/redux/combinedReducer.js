@@ -1,8 +1,8 @@
-import dummyReducer from './dummyReducer';
+import todaysData from './todaysData';
 import { combineReducers } from 'redux';
 
 const appReducer = combineReducers ({
-  samples: dummyReducer
+  data: todaysData
 })
 
 export default appReducer;

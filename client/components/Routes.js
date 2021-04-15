@@ -1,14 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import Sample from './Sample';
+import Puzzle from './Puzzle';
 import Error from './Error';
-import Nav from './Nav';
 
 const Routes = () => {
   return (
     <Router>
       <div>
-        <Nav />
         <main>
           <Switch>
             <Route
@@ -17,7 +15,7 @@ const Routes = () => {
               Hello World!
              </h1>
             )} />
-            <Route exact path="/sample" component={Sample} />
+            <Route exact path="/play" component={Puzzle} />
             <Route component={Error} />
           </Switch>
         </main>

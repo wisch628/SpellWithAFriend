@@ -5,6 +5,7 @@
 [] Run NPM i
 [] Run npm run build
 [] Make sure git ignore is up to date
+[] To start run npm run start:dev
 
 ## Backend
 [] Create a new DB using createdb
