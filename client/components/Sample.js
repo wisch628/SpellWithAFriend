@@ -1,23 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { INSERT THUNKS} from '../redux/dummyReducer';
+import { sampleThunkCreator } from '../redux/dummyReducer';
 import { Link } from 'react-router-dom';
 
 export class Sample extends React.Component {
     constructor() {
       super();
       this.state = {
-        loading: true,
-        sampleArray: []
+        loading: true
       }
     //   this.sampleFunction = this.sampleFunction.bind(this);
 
     }
     async componentDidMount () {
-    //   await this.props.sampleThunk();
+      console.log('calling component did mount');
+      await this.props.sampleThunk();
       this.setState({
-        loading: false,
-        sampleArray: [1, 2, 3]
+        loading: false
       })
     }
     // async sampleFunction(id) {
@@ -32,17 +31,20 @@ export class Sample extends React.Component {
           </div>
         )
       } else {
+        const samples = this.props.samples || [];
+        console.log(this.props);
+        console.log(this.state);
       return (
         <div>
             <Link to="/sample">
               Here is a sample link!
             </Link>
         
-          {this.state.sampleArray.length > 0 ? this.state.sampleArray.map(number => (
-            <div key = {number}>
-                <p>Number {number}</p>
+          {samples.length > 0 ? samples.map(sample => (
+            <div key = {sample.id}>
+                <p>Name: {sample.username}</p>
             </div>
-          )) : <p>There are no robots in the database! Add some now! </p>}
+          )) : <p>There are no samples in the database! </p>}
         </div>
       );
      }
@@ -51,13 +53,13 @@ export class Sample extends React.Component {
   
   const mapState = (state) => {
     return {
-      robots: state.robots
+      samples: state.samples
     };
   };
   
   const mapDispatch = (dispatch, { history }) => {
     return {
-      sampleThunk: (sort) => dispatch(sampleThunkCreator(sort))
+      sampleThunk: () => dispatch(sampleThunkCreator())
     };
   };
   

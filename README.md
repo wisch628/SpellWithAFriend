@@ -3,6 +3,7 @@
 
 ## Housekeeping
 [] Run NPM i
+[] Run npm run build
 [] Make sure git ignore is up to date
 
 ## Backend
