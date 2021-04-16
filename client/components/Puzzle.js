@@ -2,6 +2,7 @@ import React from 'react';
 import Hexagon from './Hexagon';
 import { connect } from 'react-redux';
 import { todaysDataThunkCreator } from '../redux/todaysData';
+import { addWordThunkCreator, getWordsThunkCreator } from '../redux/correctWords';
 import { Link } from 'react-router-dom';
 
 export class Puzzle extends React.Component {
@@ -10,7 +11,6 @@ export class Puzzle extends React.Component {
       this.state = {
         loading: true, 
         currentWord: '',
-        correctWords: [],
         alert: {
           class: 'white',
           message: '',
@@ -49,9 +49,10 @@ export class Puzzle extends React.Component {
       if (event.key === 'Enter') {
         let newAlert = {};
           const newWord = this.state.currentWord.toLowerCase();
-          let correct = this.state.correctWords;
+          //let correct = this.props.correctWords;
           let string = this.props.data.centerLetter + this.props.data.outerLetters.join("");
           let regex = new RegExp(`^[${string}]*$`);
+          const correctWords = this.props.words.map(wordObject => wordObject.word);
           if (newWord.length <= 3) {
             newAlert = {
               class: 'black',
@@ -73,7 +74,7 @@ export class Puzzle extends React.Component {
                   class: 'black',
                   message: 'Not in word list'
                 };
-          } else if (this.state.correctWords.includes(newWord)) {
+          } else if (correctWords.includes(newWord)) {
               newAlert = {
                 class: 'black',
                 message: 'You already got that word!'
@@ -92,11 +93,10 @@ export class Puzzle extends React.Component {
                 };
               }
               
-              correct.push(newWord);
+              this.props.addWord({word: newWord});
               }
           this.setState({
             alert: newAlert,
-            correctWords: correct,
             currentWord: ''
         })
           }
@@ -104,6 +104,7 @@ export class Puzzle extends React.Component {
 
     async componentDidMount () {
       await this.props.getData();
+      await this.props.getWords();
       this.setState({
         loading: false, 
         outside: this.props.data.outerLetters
@@ -121,8 +122,8 @@ export class Puzzle extends React.Component {
         const data = this.props.data || {};
         const outside = this.state.outside.map(letter => letter.toUpperCase());
         const center = data.centerLetter;
-        const correctWords = this.state.correctWords || [];
-        console.log(this.state, 'state');
+        const correctWords = this.props.words || [];
+        console.log(correctWords, 'correct words');
         //console.log(this.state, 'state');
       return (
         <div>
@@ -133,11 +134,11 @@ export class Puzzle extends React.Component {
             <div className="right-container">
               <p>You have found {correctWords.length || 0} words</p>
                 <div className = "word-container">
-                  {correctWords.map(word => {
-                    const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
+                  {correctWords.length>0 ? correctWords.map(wordObject => {
+                    const capitalized = wordObject.word.charAt(0).toUpperCase() + wordObject.word.slice(1);
                     return (
-                      <p className='correct' key={word}>{capitalized}</p>
-                  )})}
+                      <p className='correct' key={wordObject.id}>{capitalized}</p>
+                  )}) : "start guessing!"}
                 </div>
             </div>
             <div className="left-container">
@@ -170,13 +171,16 @@ export class Puzzle extends React.Component {
   
   const mapState = (state) => {
     return {
-      data: state.data
+      data: state.data,
+      words: state.words
     };
   };
   
   const mapDispatch = (dispatch, { history }) => {
     return {
-      getData: () => dispatch(todaysDataThunkCreator())
+      getData: () => dispatch(todaysDataThunkCreator()), 
+      getWords: () => dispatch(getWordsThunkCreator()),
+      addWord: (word) => dispatch(addWordThunkCreator(word))
     };
   };
   

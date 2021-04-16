@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const puppeteer = require('puppeteer');
-//const Sample = require('../db/models/sample')
+const CorrectWords = require('../db/models/correct-words');
+const User = require('../db/models/users');
 
 // router.get('/:id', async (req, res, next) => {
 //     try {
@@ -16,14 +17,27 @@ const puppeteer = require('puppeteer');
 //     }
 // })
 
-// router.post('/add', async (req, res, next) => {
-//     try {
-//     const newSample = await Sample.create(req.body);
-//     res.status(201).send(newSample);
-//     } catch (error) {
-//         next(error);
-//     }
-// })
+router.get('/correct', async (req, res, next) => {
+    try {
+    const correctWords = await CorrectWords.findAll();
+    res.send(correctWords);
+   } catch (error) {
+        next(error);
+    }
+})
+// {
+//     include: {
+//         model: User
+//     }}
+
+router.post('/add', async (req, res, next) => {
+    try {
+    const newWord = await CorrectWords.create(req.body);
+    res.status(201).send(newWord);
+    } catch (error) {
+        next(error);
+    }
+})
 
 // router.delete('/:id', async (req, res, next) => {
 //     try {

@@ -9,12 +9,13 @@ const getTodaysData = (data) => ({
     data
 });
 
+
+
 //thunk creators
 export const todaysDataThunkCreator = () => {
     return async (dispatch) => {
         const response = await Axios.get('/api/today');
         let data = response.data;
-        console.log('called thunk', data);
         dispatch(getTodaysData(data));
         //history.push('/redirectLink);
     }

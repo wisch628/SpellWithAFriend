@@ -1,5 +1,5 @@
 {
-  "name": "boilermaker",
+  "name": "spelling-bee",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -35,7 +35,9 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.2",
+    "socket.io": "^4.0.1",
+    "socket.io-client": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.15",
