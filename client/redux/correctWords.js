@@ -21,17 +21,17 @@ export const getNewServerWord = (word) => ({
 })
 
 
-export const getWordsThunkCreator = () => {
+export const getWordsThunkCreator = (id) => {
     return async (dispatch) => {
-        const response = await Axios.get('/api/today/correct');
+        const response = await Axios.get(`/api/today/correct/${id}`);
         let words = response.data;
         dispatch(getWords(words));
     }
 }
 
-export const addWordThunkCreator = (word) => {
+export const addWordThunkCreator = (wordObject) => {
     return async (dispatch) => {
-        const response = await Axios.post('/api/today/add', word);
+        const response = await Axios.post('/api/today/add', wordObject);
         let newWord = response.data;
         dispatch(getNewServerWord(newWord));
         //history.push('/redirectLink);

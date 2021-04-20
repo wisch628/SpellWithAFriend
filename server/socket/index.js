@@ -1,4 +1,4 @@
-const CorrectWord = require('../db/models/correct-words');
+const Words = require('../db/models/words');
 //const Channel = require('../db/models/channel');
 
 module.exports = io => {

@@ -7,8 +7,9 @@ const db = require('../db');
     type: Sequelize.STRING,
     allowNull: false
   },
-  color: {
-    type: Sequelize.ENUM('red', 'orange', 'green', 'blue', 'purple')
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 });
 

@@ -7,15 +7,14 @@ const User = require('./users');
 
 // const SALT_ROUNDS = 5;
 
-const CorrectWords = db.define('correct-words', {
+const Words = db.define('words', {
   word: {
     type: Sequelize.STRING,
-    unique: true,
     allowNull: false
   }
 })
 
 
-module.exports = CorrectWords
+module.exports = Words
 
 //add any hooks, class methods, or instance methods below

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import Puzzle from './Puzzle';
 import Error from './Error';
+import NewGame from './NewGame';
 
 const Routes = () => {
   return (
@@ -9,13 +10,8 @@ const Routes = () => {
       <div>
         <main>
           <Switch>
-            <Route
-            exact path="/" render={() =>
-            (<h1>
-              Hello World!
-             </h1>
-            )} />
-            <Route exact path="/play" component={Puzzle} />
+            <Route exact path="/" component={NewGame} />
+            <Route path={'/play/:id'} component={Puzzle} />
             <Route component={Error} />
           </Switch>
         </main>

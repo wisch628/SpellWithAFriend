@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const puppeteer = require('puppeteer');
-const CorrectWords = require('../db/models/correct-words');
+const Words = require('../db/models/words');
+const Games = require('../db/models/games');
 const User = require('../db/models/users');
 
 // router.get('/:id', async (req, res, next) => {
@@ -17,9 +18,12 @@ const User = require('../db/models/users');
 //     }
 // })
 
-router.get('/correct', async (req, res, next) => {
+router.get('/correct/:id', async (req, res, next) => {
     try {
-    const correctWords = await CorrectWords.findAll();
+    const correctWords = await Words.findAll({
+        where: {
+            gameId: req.params.id
+    }});
     res.send(correctWords);
    } catch (error) {
         next(error);
@@ -32,7 +36,10 @@ router.get('/correct', async (req, res, next) => {
 
 router.post('/add', async (req, res, next) => {
     try {
-    const newWord = await CorrectWords.create(req.body);
+    const newWord = await Words.create({word: req.body.word});
+    console.log(newWord);
+    const game = await Games.findByPk(req.body.gameId)
+    await game.addWord(newWord);
     res.status(201).send(newWord);
     } catch (error) {
         next(error);

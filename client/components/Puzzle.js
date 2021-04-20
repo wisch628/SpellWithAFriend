@@ -93,7 +93,7 @@ export class Puzzle extends React.Component {
                 };
               }
               
-              this.props.addWord({word: newWord});
+              this.props.addWord({word: newWord, gameId: this.props.match.params.id});
               }
           this.setState({
             alert: newAlert,
@@ -104,7 +104,7 @@ export class Puzzle extends React.Component {
 
     async componentDidMount () {
       await this.props.getData();
-      await this.props.getWords();
+      await this.props.getWords(this.props.match.params.id);
       this.setState({
         loading: false, 
         outside: this.props.data.outerLetters
@@ -123,9 +123,9 @@ export class Puzzle extends React.Component {
         const outside = this.state.outside.map(letter => letter.toUpperCase());
         const center = data.centerLetter;
         const correctWords = this.props.words || [];
-        console.log(correctWords, 'correct words');
         //console.log(this.state, 'state');
-      return (
+      
+        return (
         <div>
             <div>
             <h1>Today's Puzzle</h1>
@@ -179,8 +179,8 @@ export class Puzzle extends React.Component {
   const mapDispatch = (dispatch, { history }) => {
     return {
       getData: () => dispatch(todaysDataThunkCreator()), 
-      getWords: () => dispatch(getWordsThunkCreator()),
-      addWord: (word) => dispatch(addWordThunkCreator(word))
+      getWords: (id) => dispatch(getWordsThunkCreator(id)),
+      addWord: (wordObject) => dispatch(addWordThunkCreator(wordObject))
     };
   };
   
