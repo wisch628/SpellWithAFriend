@@ -12,8 +12,11 @@ const UserGameAs = require('./models/user-game-as');
     //A.belongTo(B);
 //One to Many
     UserInfo.hasMany(Words);
+    Words.belongsTo(UserInfo);
     Games.hasMany(Words);
+    Words.belongsTo(Games);
     Games.belongsToMany(UserInfo, {through: UserGameAs});
+    UserInfo.belongsToMany(Games, {through: UserGameAs});
 //Many to Many
     //A.belongsToMany(B, {through: 'C'}) belongs to many through a junction tables
 

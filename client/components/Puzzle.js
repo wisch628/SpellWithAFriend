@@ -3,9 +3,10 @@ import Hexagon from './Hexagon';
 import { connect } from 'react-redux';
 import { todaysDataThunkCreator } from '../redux/todaysData';
 import { addWordThunkCreator, getWordsThunkCreator } from '../redux/correctWords';
+import { getGameAndUserThunkCreator } from '../redux/userReducer';
 import { Link } from 'react-router-dom';
 
-export class Puzzle extends React.Component {
+class Puzzle extends React.Component {
     constructor() {
       super();
       this.state = {
@@ -93,7 +94,7 @@ export class Puzzle extends React.Component {
                 };
               }
               
-              this.props.addWord({word: newWord, gameId: this.props.match.params.id});
+              this.props.addWord(newWord, this.props.match.params.gameId, this.props.match.params.userId);
               }
           this.setState({
             alert: newAlert,
@@ -104,7 +105,8 @@ export class Puzzle extends React.Component {
 
     async componentDidMount () {
       await this.props.getData();
-      await this.props.getWords(this.props.match.params.id);
+      await this.props.getWords(this.props.match.params.gameId);
+      await this.props.getUserAndGame(this.props.match.params.gameId, this.props.match.params.userId)
       this.setState({
         loading: false, 
         outside: this.props.data.outerLetters
@@ -123,7 +125,7 @@ export class Puzzle extends React.Component {
         const outside = this.state.outside.map(letter => letter.toUpperCase());
         const center = data.centerLetter;
         const correctWords = this.props.words || [];
-        //console.log(this.state, 'state');
+        console.log(this.props, 'props');
       
         return (
         <div>
@@ -137,12 +139,12 @@ export class Puzzle extends React.Component {
                   {correctWords.length>0 ? correctWords.map(wordObject => {
                     const capitalized = wordObject.word.charAt(0).toUpperCase() + wordObject.word.slice(1);
                     return (
-                      <p className='correct' key={wordObject.id}>{capitalized}</p>
+                      <p className={['correct', this.props.userAndGame.color].join(' ')} key={wordObject.id}>{capitalized}</p>
                   )}) : "start guessing!"}
                 </div>
             </div>
             <div className="left-container">
-            <input placeholder="Type Your Word" name="currentWord" type="text" value={this.state.currentWord} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input placeholder="Type Your Word" name="currentWord" id="wordField" type="text" value={this.state.currentWord} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <h2 id="alert" className={this.state.alert.class}>{this.state.alert.message}</h2>
             <button type="button" onClick={this.shuffleLetters}>Shuffle Letters</button>
             <div className ="game-container" onClick={this.letterClick}>
@@ -172,7 +174,8 @@ export class Puzzle extends React.Component {
   const mapState = (state) => {
     return {
       data: state.data,
-      words: state.words
+      words: state.words,
+      userAndGame: state.user
     };
   };
   
@@ -180,7 +183,8 @@ export class Puzzle extends React.Component {
     return {
       getData: () => dispatch(todaysDataThunkCreator()), 
       getWords: (id) => dispatch(getWordsThunkCreator(id)),
-      addWord: (wordObject) => dispatch(addWordThunkCreator(wordObject))
+      addWord: (wordObject, gameId, userId) => dispatch(addWordThunkCreator(wordObject, gameId, userId)),
+      getUserAndGame: (gameId, userId) => dispatch(getGameAndUserThunkCreator(gameId, userId))
     };
   };
   

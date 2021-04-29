@@ -7,5 +7,12 @@ const UserGameAs = db.define('user-game-as', {
       }
   })
   
+
+  //instance methods
+
+  UserGameAs.prototype.setColor = async function (color) {
+    this.color = color;
+    await this.save();
+  }
   
   module.exports = UserGameAs;

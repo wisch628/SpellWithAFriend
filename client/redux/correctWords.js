@@ -29,9 +29,9 @@ export const getWordsThunkCreator = (id) => {
     }
 }
 
-export const addWordThunkCreator = (wordObject) => {
+export const addWordThunkCreator = (word, gameId, userId) => {
     return async (dispatch) => {
-        const response = await Axios.post('/api/today/add', wordObject);
+        const response = await Axios.post('/api/today/add', {word: word, gameId: gameId, userId: userId})
         let newWord = response.data;
         dispatch(getNewServerWord(newWord));
         //history.push('/redirectLink);

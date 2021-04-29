@@ -1,17 +1,17 @@
 const { green, red } = require('chalk');
-const Sample = require('./server/db/models/sample');
-const { db } = require('./server/db');
+const User = require('../server/db/models/users');
+const { db } = require('../server/db');
 
 const seed = async () => {
   try {
     await db.sync({ force: true });
-    const samples = await Promise.all([
-      Sample.create({  username: 'Hannah', password: 'test'}),
-      Sample.create({  username: 'Dom', password: 'password' }),
-      Sample.create({  username: 'Brooke', password: 'blah' }),
+    const users = await Promise.all([
+      User.create({  firstName: 'Hannah', lastName: 'Wischnia', email: 'hannah@mail.com'}),
+      User.create({  firstName: 'Dom', lastName: 'Zona', email: 'dom@mail.com' }),
+      User.create({  firstName: 'Brooke', lastName: 'Sterneck', email: 'brooke@mail.com' }),
     ]);
 
-    const [hannah, dom, brooke] = samples;
+    const [hannah, dom, brooke] = users;
   
     //ADD IN YOUR RELATIONSHIPS HERE
     //await hannah.setProjects([marketing, engineering]);

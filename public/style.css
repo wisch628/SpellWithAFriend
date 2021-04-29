@@ -90,8 +90,15 @@ h5 {
   width: 500px;
   margin: 30px auto auto 180px;
 }
-
 input {
+  outline: 0;
+  border-width: 0 0 .5px 0;
+  border-color: #e6e6e6;
+  font-size: 14px;
+  margin: 0px auto auto auto;
+  text-align: center;
+}
+#wordField {
   outline: 0;
   border-width: 0 0 .5px 0;
   border-color: #e6e6e6;
@@ -137,4 +144,24 @@ input {
   display: flex;
   flex-wrap: wrap;
   margin-left: 40px;
+}
+
+.red {
+  color: red
+}
+
+.orange {
+  color: orange
+}
+
+.green {
+  color: green
+}
+
+.blue {
+  color: blue
+}
+
+.purple {
+  color: purple
 }

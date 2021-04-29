@@ -13,12 +13,12 @@ const createGame = (game) => ({
     game
 })
 
-export const createGameThunkCreator = (color, history) => {
+export const createGameThunkCreator = (userId, color, history) => {
     return async (dispatch) => {
-        const response = await Axios.post(`/api/new-game`, color);
+        const response = await Axios.post(`/api/game`, {userId: userId, color: color});
         const game = response.data;
         dispatch(createGame(game));
-        history.push(`/play/${game.id}`)
+        history.push(`/play/${game.id}/${userId}`)
     }
 }
 
