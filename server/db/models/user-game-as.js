@@ -3,7 +3,7 @@ const db = require('../db')
 
 const UserGameAs = db.define('user-game-as', {
     color: {
-        type: Sequelize.ENUM('red', 'orange', 'green', 'blue', 'purple')
+        type: Sequelize.ENUM('Red', 'Orange', 'Green', 'Blue', 'Purple')
       }
   })
   

@@ -25,14 +25,21 @@ class Login extends React.Component {
         })
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
         if (this.state.userAction === "Login") {
-            this.props.getUser(this.state.email);
+            await this.props.getUser(this.state.email);
+            if (this.props.path === "/games") {
+                this.props.redirect();
+            } else {
+                this.props.onDone()
+            }
+
         } else if (this.state.userAction === "Sign Up") {
-            this.props.createUser(this.state)
+            this.props.createUser(this.state);
+            this.props.onDone();
         }
-        this.props.onDone()
+        
     }
 
     handleChange(event) {
@@ -42,16 +49,16 @@ class Login extends React.Component {
     }
 
     render(){
-        console.log('props', this.props);
-        console.log('state', this.state);
         return (
             <div>
                 <div>
                     {this.state.userAction === null ? (
                     <div>
+                        <h1>If you want to save your game stats, either sign up or login as a user. Otherwise, you can continue as a guest!</h1>
                         <button onClick={()=>this.onChoose('Login')}>Login</button>
+                        {this.props.path === "/games" ? (this.onChoose('Login')) : (null)}
                         <button onClick={() => this.onChoose('Sign Up')}>Sign Up</button>
-                        <button onClick={this.handleSubmit}>Play as a Guest</button>
+                        {/* <button onClick={this.handleSubmit}>Play as a Guest</button> */}
                      </div>) : (
 
                         <form id="userLogin" onSubmit={this.handleSubmit}>

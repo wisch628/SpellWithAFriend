@@ -3,8 +3,11 @@ import Hexagon from './Hexagon';
 import { connect } from 'react-redux';
 import { todaysDataThunkCreator } from '../redux/todaysData';
 import { addWordThunkCreator, getWordsThunkCreator } from '../redux/correctWords';
-import { getGameAndUserThunkCreator } from '../redux/userReducer';
+import { getGameUsersThunkCreator } from '../redux/gameUsers';
+import { getUserThunkCreator } from '../redux/userReducer';
+import { getGameThunkCreator } from '../redux/game';
 import { Link } from 'react-router-dom';
+import InvitePopUp from './InvitePopUp';
 
 class Puzzle extends React.Component {
     constructor() {
@@ -12,6 +15,7 @@ class Puzzle extends React.Component {
       this.state = {
         loading: true, 
         currentWord: '',
+        seen: false,
         alert: {
           class: 'white',
           message: '',
@@ -22,6 +26,7 @@ class Puzzle extends React.Component {
       this.handleChange = this.handleChange.bind(this);
       this.handleKeyPress = this.handleKeyPress.bind(this);
       this.letterClick = this.letterClick.bind(this);
+      this.togglePopUp = this.togglePopUp.bind(this);
 
     }
 
@@ -105,14 +110,24 @@ class Puzzle extends React.Component {
 
     async componentDidMount () {
       await this.props.getData();
+      await this.props.getGame(this.props.match.params.gameId);
       await this.props.getWords(this.props.match.params.gameId);
-      await this.props.getUserAndGame(this.props.match.params.gameId, this.props.match.params.userId)
+      await this.props.getGameUsers(this.props.match.params.gameId);
+      const thisUser = this.props.gameUsers.filter(user => user.id === Number(this.props.match.params.userId))[0];
+      await this.props.getUser(thisUser.email);
       this.setState({
         loading: false, 
         outside: this.props.data.outerLetters
       })
     }
   
+    togglePopUp(){
+      console.log('toggle');
+      this.setState({
+        seen: !this.state.seen
+      })
+    }
+
     render() {
       if (this.state.loading === true) {
         return (
@@ -129,18 +144,36 @@ class Puzzle extends React.Component {
       
         return (
         <div>
+          {this.state.seen ? <InvitePopUp togglePopUp={this.togglePopUp} game={this.props.game}/> : null}
             <div>
-            <h1>Today's Puzzle</h1>
+            <h1>Today's Puzzle</h1> 
+            <button onClick={this.togglePopUp}>Invite Friends</button>
+            <h3>Player: {this.props.user.firstName}</h3>
+            <h3>Color: <span className={this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}>{this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}</span></h3>
             </div>
             <div className="flex">
             <div className="right-container">
-              <p>You have found {correctWords.length || 0} words</p>
+              <p>Your team has found {correctWords.length || 0} words</p>
                 <div className = "word-container">
                   {correctWords.length>0 ? correctWords.map(wordObject => {
                     const capitalized = wordObject.word.charAt(0).toUpperCase() + wordObject.word.slice(1);
+                    const user = this.props.gameUsers.filter(user => user.id === wordObject.userId)[0];
+                    const color = user.games[0]['user-game-as'].color;
                     return (
-                      <p className={['correct', this.props.userAndGame.color].join(' ')} key={wordObject.id}>{capitalized}</p>
-                  )}) : "start guessing!"}
+                      <p className={['correct', color].join(' ')} key={wordObject.id}>{capitalized}</p>
+                  )}) : "Start Guessing!"}
+                </div>
+              <p>Your teamates:</p>
+              <div className = "word-container">
+                  {this.props.gameUsers.length>1 ? this.props.gameUsers.filter(user => user.id !== this.props.user.id).map(user => {
+                    const color = user.games[0]['user-game-as'].color;
+                    return (
+                      <p className={['correct', color].join(' ')} key={user.id}>{user.firstName}</p>
+                  )}) : (
+                    <div>
+                      <p>Your team is empty! Invite friends here</p>
+                      <button onClick={this.togglePopUp}>Invite Friends</button>
+                    </div>)}
                 </div>
             </div>
             <div className="left-container">
@@ -175,7 +208,9 @@ class Puzzle extends React.Component {
     return {
       data: state.data,
       words: state.words,
-      userAndGame: state.user
+      gameUsers: state.gameUsers,
+      user: state.user,
+      game: state.game
     };
   };
   
@@ -184,7 +219,9 @@ class Puzzle extends React.Component {
       getData: () => dispatch(todaysDataThunkCreator()), 
       getWords: (id) => dispatch(getWordsThunkCreator(id)),
       addWord: (wordObject, gameId, userId) => dispatch(addWordThunkCreator(wordObject, gameId, userId)),
-      getUserAndGame: (gameId, userId) => dispatch(getGameAndUserThunkCreator(gameId, userId))
+      getGameUsers: (gameId) => dispatch(getGameUsersThunkCreator(gameId)),
+      getUser: (email) => dispatch(getUserThunkCreator(email)),
+      getGame: (gameId) => dispatch(getGameThunkCreator(gameId))
     };
   };
   
