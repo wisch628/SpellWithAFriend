@@ -21,6 +21,9 @@ constructor() {
     event.preventDefault();
     const message = this.state.currentMessage;
     await this.props.post(this.props.game.id, message, this.props.user.id);
+    this.setState({
+      currentMessage: ''
+    })
 
   }
 
