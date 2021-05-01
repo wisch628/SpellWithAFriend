@@ -5,6 +5,7 @@ import game from './game';
 import userReducer from './userReducer';
 import gameUsersReducer from './gameUsers';
 import allGames from './allGames';
+import messages from './messages';
 
 const appReducer = combineReducers ({
   data: todaysData,
@@ -12,7 +13,8 @@ const appReducer = combineReducers ({
   game: game, 
   user: userReducer,
   gameUsers: gameUsersReducer,
-  allGames: allGames
+  allGames: allGames,
+  messages: messages
 })
 
 export default appReducer;

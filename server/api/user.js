@@ -27,14 +27,16 @@ router.get('/:email', async (req, res, next) => {
 
 router.get('/game/:gameId', async (req, res, next) => {
     try {
-    const game = await Games.findByPk(req.params.gameId);
-    // const gameUsers = await UserGame.findAll({
-    //     where:{
-    //         gameId: game.id
-    //     },
-    // include: {
-    //     model: User
-    // }})
+        let game;
+        console.log(req.params.gameId);
+        if (Number(req.params.gameId)){
+            game = await Games.findByPk(req.params.gameId);
+        } else {
+            game = await Games.findOne({
+                where: {
+                    code: req.params.gameId
+            }})
+        }
     const gameUsers = await User.findAll({
     include: {
         model: Games,

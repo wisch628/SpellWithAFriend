@@ -4,6 +4,9 @@ const db = require('../db')
 const Games = db.define('games', {
     code: {
         type: Sequelize.STRING
+    },
+    expiration: {
+      type: Sequelize.DATE
     }
   })
   
@@ -13,6 +16,12 @@ const Games = db.define('games', {
         return Math.random().toString(20).substr(2, length)
         };
     const code = generateRandomString();
+    let date = new Date();
+    if (date.getHours() >= 3) {
+      date.setDate(new Date().getDate()+1);
+    }
+    date.setHours(3, 0, 0, 0)
+    game.expiration = date;
     game.code = code;
   });
   

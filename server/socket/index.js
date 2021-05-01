@@ -1,5 +1,5 @@
 const Words = require('../db/models/words');
-//const Channel = require('../db/models/channel');
+const Messages = require('../db/models/messages');
 
 module.exports = io => {
 
@@ -11,10 +11,9 @@ module.exports = io => {
       socket.broadcast.emit('new-word', word);
     });
 
-    // socket.on('new-channel', channel => {
-    //   socket.broadcast.emit('new-channel', channel);
-    // });
-
+    socket.on('new-message', message => {
+      socket.broadcast.emit('new-message', message);
+    });
   });
 
 };

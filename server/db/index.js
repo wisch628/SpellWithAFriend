@@ -3,6 +3,7 @@ const UserInfo = require('./models/users');
 const Words = require('./models/words');
 const Games = require('./models/games');
 const UserGameAs = require('./models/user-game-as');
+const Messages = require('./models/messages');
 //REQUIRE MODELS HERE
 
 //DEFINE ASSOCIATIONS HERE
@@ -15,6 +16,10 @@ const UserGameAs = require('./models/user-game-as');
     Words.belongsTo(UserInfo);
     Games.hasMany(Words);
     Words.belongsTo(Games);
+    UserInfo.hasMany(Messages);
+    Messages.belongsTo(UserInfo);
+    Games.hasMany(Messages);
+    Messages.belongsTo(Games);
     Games.belongsToMany(UserInfo, {through: UserGameAs});
     UserInfo.belongsToMany(Games, {through: UserGameAs});
 //Many to Many
@@ -27,7 +32,8 @@ module.exports = {
         UserInfo, 
         Words,
         Games,
-        UserGameAs
+        UserGameAs,
+        Messages
         //INSERT MODELS HERE
     },
   }

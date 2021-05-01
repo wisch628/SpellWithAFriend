@@ -8,6 +8,7 @@ import { getUserThunkCreator } from '../redux/userReducer';
 import { getGameThunkCreator } from '../redux/game';
 import { Link } from 'react-router-dom';
 import InvitePopUp from './InvitePopUp';
+import ChatBox from './ChatBox';
 
 class Puzzle extends React.Component {
     constructor() {
@@ -196,6 +197,7 @@ class Puzzle extends React.Component {
             </div>
             </div>
             </div>
+            <ChatBox game={this.props.game} user={this.props.user}/>
             </div>
             
 </div>
@@ -214,7 +216,7 @@ class Puzzle extends React.Component {
     };
   };
   
-  const mapDispatch = (dispatch, { history }) => {
+  const mapDispatch = (dispatch) => {
     return {
       getData: () => dispatch(todaysDataThunkCreator()), 
       getWords: (id) => dispatch(getWordsThunkCreator(id)),
