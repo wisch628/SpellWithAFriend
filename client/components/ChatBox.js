@@ -27,7 +27,6 @@ class MessagesList extends React.Component {
       await this.setState({
         currentMessage: ''
       })
-  
     }
   
 
@@ -39,8 +38,8 @@ class MessagesList extends React.Component {
     const messages = this.props.messages || [];
 console.log(this.props)
     return (
-      <div>
-        <div className="messageContainer">
+      <div className="messageContainer">
+        <div >
           {messages.length > 0 ? (messages.map((message) => 
           ( 
             message.userId === this.props.user.id ? (
@@ -56,17 +55,16 @@ console.log(this.props)
             )
           ))) : (null)}
         </div>
-        <form id="new-message-form" onSubmit={this.handleSubmit}>
+        <form id="new-message-form" className="new-message-form" onSubmit={this.handleSubmit}>
           <input
-            className="fnew-message-form"
             type="text"
             name="currentMessage"
-            placeholder="Start chatting!"
+            placeholder="Write your message"
             value={this.state.currentMessage}
             onChange = {this.handleChange}
           />
           <span className="input-group-btn">
-            <button className="btn btn-default" type="submit">Chat!</button>
+            <button className="btn btn-default" type="submit">Send</button>
           </span>
       </form>
       </div>

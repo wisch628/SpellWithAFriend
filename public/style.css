@@ -84,6 +84,7 @@ h5 {
 .flex {
   display: flex;
   flex-direction: row-reverse;
+  margin-top: 70px;
 }
 
 .game-container {
@@ -191,14 +192,27 @@ input {
 }
 
 .close:hover {
-  color: cyan;
+  color: #f8cd04;
   cursor: pointer;
 }
 
 .messageContainer {
   width: 500px;
   border: .5px solid black;
+  min-height: 200px;
+  bottom: 0;
+  position: fixed;
+  right: 0;
+  margin-bottom: 50px;
+  background-color: white;
+  z-index: 1;
+  max-height: 600px;
+  overflow: auto;
 }
+
+/* .innerMessages {
+  overflow-y: scroll
+} */
 
 .message {
  color: grey;
@@ -231,9 +245,22 @@ input {
    margin-left: 120px;
  }
 
- .new-message-form {
+ #new-message-form {
    width: 500px;
-   font-size: 20px;
+   font-size: 24px;
+   outline: .5px;
+  border-width: .5px;
+  padding: 10px 20px 5px 20px;
+  z-index: 2;
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 50px;
+  background-color: white;
+ }
+
+ #new-message-form > input {
+   font-size: 24px;
+   border-width: 0;
  }
 
  .Red.message > p {
@@ -255,3 +282,62 @@ input {
 .Purple.message > p{
   background-color: purple
 }
+
+nav {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  margin: 0px;
+  left: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  
+  
+}
+
+nav.top {
+justify-content: space-around;
+background-color: #e6e6e6;
+top: 0;
+align-items: center;
+height: 70px;
+
+}
+
+nav.bottom {
+  bottom: 0;
+  background-color: #333;
+  color: white;
+  justify-content: flex-end;
+  height: 50px;
+}
+
+button {
+  font-size: 14px;
+}
+
+nav.bottom > button {
+  width: 500px;
+  right: 0;
+  border: 0;
+  background-color: #f8cd04;
+  color: white;
+  font-size: 20px;
+}
+
+nav.top > button {
+  height: 30px;
+}
+
+.team {
+  top: 0;
+  position: fixed;
+  right: 0;
+  z-index: 1;
+  background-color: white;
+  margin-top: 70px;
+  border: .5px solid black;
+  width: 300px;
+  text-align: center;
+}
+

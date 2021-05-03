@@ -17,6 +17,8 @@ class Puzzle extends React.Component {
         loading: true, 
         currentWord: '',
         seen: false,
+        chat: false,
+        team: false,
         alert: {
           class: 'white',
           message: '',
@@ -122,10 +124,9 @@ class Puzzle extends React.Component {
       })
     }
   
-    togglePopUp(){
-      console.log('toggle');
+    togglePopUp(input){
       this.setState({
-        seen: !this.state.seen
+        [input]: !this.state[input]
       })
     }
 
@@ -145,13 +146,34 @@ class Puzzle extends React.Component {
       
         return (
         <div>
-          {this.state.seen ? <InvitePopUp togglePopUp={this.togglePopUp} game={this.props.game}/> : null}
-            <div>
-            <h1>Today's Puzzle</h1> 
-            <button onClick={this.togglePopUp}>Invite Friends</button>
+          {this.state.seen ? <InvitePopUp togglePopUp={() => this.togglePopUp('seen')} game={this.props.game}/> : null}
+          <nav className="top">
+            <button onClick={() => this.togglePopUp('seen')}>Invite Friends</button>
+            <h3>Today's Puzzle</h3>
             <h3>Player: {this.props.user.firstName}</h3>
             <h3>Color: <span className={this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}>{this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}</span></h3>
-            </div>
+            <button onClick={() => this.togglePopUp('team')}>View Your Team</button>
+          </nav>
+          <nav className="bottom">
+            <button onClick={() => this.togglePopUp('chat')}>View Chat Box</button>
+          </nav>
+          {this.state.team ? 
+          (
+          <div togglePopUp={() => this.togglePopUp('team')}>
+              <div className={['word-container', 'team'].join(' ')} >
+                  {this.props.gameUsers.length>1 ? 
+                    this.props.gameUsers.filter(user => user.id !== this.props.user.id).map(user => {
+                    const color = user.games[0]['user-game-as'].color;
+                    return (
+                      <p className={['correct', color].join(' ')} key={user.id}>{user.firstName}</p>
+                  )}) : (
+                    <div>
+                      <p>Your team is empty!</p>
+                      <button onClick={() => this.togglePopUp('seen')}>Invite Friends</button>
+                    </div>)}
+                </div>
+              </div>
+          ) : (null)}
             <div className="flex">
             <div className="right-container">
               <p>Your team has found {correctWords.length || 0} words</p>
@@ -163,18 +185,6 @@ class Puzzle extends React.Component {
                     return (
                       <p className={['correct', color].join(' ')} key={wordObject.id}>{capitalized}</p>
                   )}) : "Start Guessing!"}
-                </div>
-              <p>Your teamates:</p>
-              <div className = "word-container">
-                  {this.props.gameUsers.length>1 ? this.props.gameUsers.filter(user => user.id !== this.props.user.id).map(user => {
-                    const color = user.games[0]['user-game-as'].color;
-                    return (
-                      <p className={['correct', color].join(' ')} key={user.id}>{user.firstName}</p>
-                  )}) : (
-                    <div>
-                      <p>Your team is empty! Invite friends here</p>
-                      <button onClick={this.togglePopUp}>Invite Friends</button>
-                    </div>)}
                 </div>
             </div>
             <div className="left-container">
@@ -197,7 +207,8 @@ class Puzzle extends React.Component {
             </div>
             </div>
             </div>
-            <ChatBox game={this.props.game} user={this.props.user}/>
+            {this.state.chat ? <ChatBox game={this.props.game} togglePopUp={() => this.togglePopUp('chat')} user={this.props.user}/> : null}
+            
             </div>
             
 </div>
