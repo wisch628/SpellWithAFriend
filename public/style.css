@@ -206,13 +206,13 @@ input {
   margin-bottom: 50px;
   background-color: white;
   z-index: 1;
-  max-height: 600px;
+  max-height: 500px;
   overflow: auto;
 }
 
-/* .innerMessages {
-  overflow-y: scroll
-} */
+.innerMessages {
+  margin-bottom: 70px;
+}
 
 .message {
  color: grey;
@@ -250,6 +250,7 @@ input {
    font-size: 24px;
    outline: .5px;
   border-width: .5px;
+  border-top: .5px solid black ;
   padding: 10px 20px 5px 20px;
   z-index: 2;
   position: fixed;

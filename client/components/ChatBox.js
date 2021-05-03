@@ -39,7 +39,7 @@ class MessagesList extends React.Component {
 console.log(this.props)
     return (
       <div className="messageContainer">
-        <div >
+        <div className="innerMessages">
           {messages.length > 0 ? (messages.map((message) => 
           ( 
             message.userId === this.props.user.id ? (
