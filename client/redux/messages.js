@@ -33,24 +33,23 @@ export const gotMessagesFromServer = (messages) => ({
     };
   };
   
-  export const gotNewMessageFromServerThunkCreator = (gameId, message, userId) => {
+  export const gotNewMessageFromServerThunkCreator = (gameId, thisMessage, userId) => {
     return async (dispatch) => {
-        console.log(gameId, message, userId);
-        const response = await axios.post(`/api/messages/${gameId}`, {message: message, userId: userId});
-        const newMessage = response.data;
-        dispatch(gotNewMessageFromServer(newMessage));
-        socket.emit('new-message', newMessage);
+        const response = await axios.post(`/api/messages/${gameId}`, {message: thisMessage, userId: userId});
+        const message = response.data;
+        dispatch(gotNewMessageFromServer(message));
+        socket.emit('new-message', message);
     };
   };
   
   export default function messages (messages = [], action) {
     switch (action.type) {
       case GOT_MESSAGES_FROM_SERVER:
-        return [ ...messages, action.messages];
+        return action.messages;
       case GOT_NEW_MESSAGE_FROM_SERVER:
-        return [ ...messages, action.messages];
+        return [ ...messages, action.message];
       case WRITE_NEW_MESSAGE:
-        return [ ...messages, action.newMessageEntry];
+        return [ ...messages, action.message];
       default:
         return messages;
     }

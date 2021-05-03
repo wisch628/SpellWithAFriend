@@ -17,6 +17,4 @@ socket.on('new-message', (message) => {
   store.dispatch(gotNewMessageFromServer(message));
 });
 
-
-
 export default socket;

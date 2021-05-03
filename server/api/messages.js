@@ -26,9 +26,16 @@ router.post('/:gameId', async (req, res, next) => {
   try {
     console.log('req.body', req.body);
     const user = await User.findByPk(Number(req.body.userId));
-    const message = await Messages.create({content: req.body.message, gameId: Number(req.params.gameId)});
+    const message = await Messages.create({content: req.body.message, gameId: Number(req.params.gameId), userId: Number(req.body.userId)});
     await user.addMessage(message);
-    res.json(message);
+    const toSend = await Messages.findOne({
+      where: {
+        id: message.id},
+      include: {
+        model: User
+      }
+    });
+    res.json(toSend);
   } catch (err) {
     next(err);
   }

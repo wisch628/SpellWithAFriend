@@ -12,18 +12,16 @@ constructor() {
   this.handleSubmit=this.handleSubmit.bind(this);
 }
   handleChange(event) {
-    this.setState({
-      [event.target.name]: (event.target.value)
-  })
+    this.props.write(event.target.value)
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-    const message = this.state.currentMessage;
+    const message = this.props.newMessageEntry;
     await this.props.post(this.props.game.id, message, this.props.user.id);
-    this.setState({
-      currentMessage: ''
-    })
+    // this.setState({
+    //   currentMessage: ''
+    // })
 
   }
 
@@ -38,7 +36,7 @@ constructor() {
             type="text"
             name="currentMessage"
             placeholder="Say something nice..."
-            value={this.state.currentMessage}
+            value={this.props.newMessageEntry}
             onChange = {this.handleChange}
           />
           <span className="input-group-btn">
@@ -50,10 +48,17 @@ constructor() {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    newMessageEntry: state.newMessageEntry
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    post: (gameId, message, userId) => dispatch(gotNewMessageFromServerThunkCreator(gameId, message, userId))
+    post: (gameId, message, userId) => dispatch(gotNewMessageFromServerThunkCreator(gameId, message, userId)),
+    write: (string) => dispatch(writeNewMessage(string))
   };
 }
 
- export default connect(null, mapDispatchToProps)(NewMessageEntry);
+ export default connect(mapStateToProps, mapDispatchToProps)(NewMessageEntry);

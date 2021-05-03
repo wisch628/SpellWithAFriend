@@ -194,3 +194,45 @@ input {
   color: cyan;
   cursor: pointer;
 }
+
+.messageContainer {
+  width: 500px;
+  border: .5px solid black;
+}
+
+.message {
+ color: grey;
+ text-align: left;
+ width: 300px;
+ margin: auto 20px;
+}
+
+.message > p {
+  background-color: rgb(34, 34, 58);
+  color: white;
+  border-radius: 50px;
+  padding: 10px;
+  max-width: 200px;
+}
+
+.my-message {
+  color: grey;
+  text-align: right;
+  width: 300px;
+  margin-left: 160px;
+  margin-right: -10px;
+ }
+ 
+ .my-message > p {
+   background-color: rgb(38, 38, 214);
+   color: white;
+   border-radius: 50px;
+   padding: 10px;
+   max-width: 200px;
+   margin-left: 120px;
+ }
+
+ .new-message-form {
+   width: 500px;
+   font-size: 20px;
+ }
