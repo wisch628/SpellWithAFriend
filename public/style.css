@@ -224,7 +224,6 @@ input {
  }
  
  .my-message > p {
-   background-color: rgb(38, 38, 214);
    color: white;
    border-radius: 50px;
    padding: 10px;
@@ -236,3 +235,23 @@ input {
    width: 500px;
    font-size: 20px;
  }
+
+ .Red.message > p {
+  background-color: red
+}
+
+.Orange.message > p {
+  background-color: orange
+}
+
+.Green.message > p {
+  background-color: green
+}
+
+.Blue.message > p {
+  background-color: blue
+}
+
+.Purple.message > p{
+  background-color: purple
+}

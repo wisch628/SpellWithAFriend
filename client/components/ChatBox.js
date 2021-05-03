@@ -44,13 +44,14 @@ console.log(this.props)
           {messages.length > 0 ? (messages.map((message) => 
           ( 
             message.userId === this.props.user.id ? (
-            <div key={message.id} className="my-message">
+            <div key={message.id} className={['my-message', 'message', this.props.gameUsers.filter(user => user.id === message.userId)[0].games[0]['user-game-as'].color].join(' ')}>
               <h4>You</h4>
               <p>{ message.content }</p>
             </div>) : (
-              <div key={message.id} className="message">
+              <div key={message.id} className={['message', this.props.gameUsers.filter(user => user.id === message.userId)[0].games[0]['user-game-as'].color].join(' ')}>
+                {console.log(this.props.gameUsers.filter(user => user.id === message.userId)[0].games[0]['user-game-as'].color)}
                 <h4>{ message.user.firstName }</h4>
-                <p>{ message.content }</p>
+                <p >{ message.content }</p>
             </div>
             )
           ))) : (null)}
@@ -77,14 +78,16 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     game: state.game,
-    messages: state.messages
+    messages: state.messages,
+    gameUsers: state.gameUsers
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchInitialMessages: (gameId) => dispatch(fetchMessagesThunkCreator(gameId)),
-    post: (gameId, message, userId) => dispatch(gotNewMessageFromServerThunkCreator(gameId, message, userId))
+    post: (gameId, message, userId) => dispatch(gotNewMessageFromServerThunkCreator(gameId, message, userId)),
+    getGameUsers: (gameId) => dispatch(getGameUsersThunkCreator(gameId))
 };
 }
 
