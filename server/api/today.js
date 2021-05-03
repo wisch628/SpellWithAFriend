@@ -30,7 +30,12 @@ router.post('/add', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
     try {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            args: [
+              '--no-sandbox',
+              '--disable-setuid-sandbox',
+            ],
+          });
         const page = await browser.newPage();
         const url = 'https://www.nytimes.com/puzzles/spelling-bee'
         await page.goto(url);
