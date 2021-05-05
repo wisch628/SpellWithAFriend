@@ -9,6 +9,7 @@ import { getGameThunkCreator } from '../redux/game';
 import { Link } from 'react-router-dom';
 import InvitePopUp from './InvitePopUp';
 import ChatBox from './ChatBox';
+import Loading from './Loading'
 
 class Puzzle extends React.Component {
     constructor() {
@@ -133,9 +134,7 @@ class Puzzle extends React.Component {
     render() {
       if (this.state.loading === true) {
         return (
-          <div>
-            <h1>Pulling today's puzzle data</h1>
-          </div>
+          <Loading message="Loading your puzzle"/>
         )
       } else {
         const data = this.props.data || {};
@@ -148,14 +147,16 @@ class Puzzle extends React.Component {
         <div>
           {this.state.seen ? <InvitePopUp togglePopUp={() => this.togglePopUp('seen')} game={this.props.game}/> : null}
           <nav className="top">
-            <button onClick={() => this.togglePopUp('seen')}>Invite Friends</button>
-            <h3>Today's Puzzle</h3>
+            <h3>{this.props.data.displayWeekday} {this.props.data.displayDate}</h3>
             <h3>Player: {this.props.user.firstName}</h3>
             <h3>Color: <span className={this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}>{this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}</span></h3>
-            <button onClick={() => this.togglePopUp('team')}>View Your Team</button>
+            <button onClick={() => this.togglePopUp('seen')}>Invite Friends</button>
+            <button>Load other games</button>
+            <button>View your stats</button>
+            <button onClick={() => this.togglePopUp('team')}>Your Team</button>
           </nav>
           <nav className="bottom">
-            <button onClick={() => this.togglePopUp('chat')}>View Chat Box</button>
+            <button onClick={() => this.togglePopUp('chat')}>Chat Box</button>
           </nav>
           {this.state.team ? 
           (
