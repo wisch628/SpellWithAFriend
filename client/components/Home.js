@@ -16,10 +16,10 @@ export default class Home extends React.Component {
                     <button>Create a New Game</button>
                 </Link>
                 <Link to="/join">
-                    <button>Join a New Game</button>
+                    <button>Join an Active Game</button>
                 </Link>
                 <Link to="/games">
-                    <button>Load an Active Game</button>
+                    <button>Load Your Active Games</button>
                 </Link>
             </div>
             </div>
