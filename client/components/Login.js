@@ -61,14 +61,14 @@ class Login extends React.Component {
                         {/* <button onClick={this.handleSubmit}>Play as a Guest</button> */}
                      </div>) : (
 
-                        <form id="userLogin" onSubmit={this.handleSubmit}>
+                        <form id="userLogin" className="userLogin" onSubmit={this.handleSubmit}>
                         {this.state.userAction === "Sign Up" ? (
-                            <div>
+                            <div className="userLogin">
                                 <h1>Sign Up</h1>
                                 <input placeholder="First Name" type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} />
                                 <input placeholder="Last Name" type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} />
                             </div>
-                        ) : (<h1>Log In</h1>)}
+                        ) : (<h1>Login</h1>)}
                        <input placeholder="Email" type="text" name="email" value={this.state.email} onChange={this.handleChange}/>
                        <input placeholder="Password" type="text" value={this.state.password} name="password" onChange={this.handleChange} />
                         <button type="submit">{this.state.userAction}</button>

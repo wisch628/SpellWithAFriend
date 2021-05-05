@@ -142,16 +142,18 @@ class Puzzle extends React.Component {
         const center = data.centerLetter;
         const correctWords = this.props.words || [];
         console.log(this.props, 'props');
-      
+        var style = { backgroundColor: 'white' };
+
         return (
-        <div>
+        <div style={style}>
+
           {this.state.seen ? <InvitePopUp togglePopUp={() => this.togglePopUp('seen')} game={this.props.game}/> : null}
           <nav className="top">
             <h3>{this.props.data.displayWeekday} {this.props.data.displayDate}</h3>
             <h3>Player: {this.props.user.firstName}</h3>
             <h3>Color: <span className={this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}>{this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}</span></h3>
             <button onClick={() => this.togglePopUp('seen')}>Invite Friends</button>
-            <button>Load other games</button>
+            <Link to={`/allgames/${this.props.user.id}`}><button>Load other games</button> </Link>
             <button>View your stats</button>
             <button onClick={() => this.togglePopUp('team')}>Your Team</button>
           </nav>

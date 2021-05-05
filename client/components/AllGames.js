@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getUserThunkCreator } from '../redux/userReducer';
 import { getAllGamesThunkCreator} from '../redux/allGames';
 import { Link } from 'react-router-dom'; 
+import Header from './Header';
 
 class AllGames extends React.Component {
     async componentDidMount(){
@@ -11,19 +12,27 @@ class AllGames extends React.Component {
     render() {
         const allGames = this.props.allGames.games || [];
         return (
-            <div>
+          <div>
+            <Header />
+          <h1>Your Active Games</h1>
+            <div className="allGames">
                 {allGames.length === 0 ? (<p>You don't have any open games!</p>) : 
-                (allGames.map(game => 
-                    (<Link key={game.id} to={`/play/${game.id}/${this.props.allGames.id}`}>
-                        <div>
-                        <h1>Game {game.id}</h1>
-                        <h3>Teammates: </h3>
-                        {game.users.length === 0 ? (<p>Empty</p>) : (
-                            (game.users.filter(user => user.id !==this.props.allGames.id).map(user => (
+                (allGames.map((game, index) => 
+                    (<div className="oneGame">
+                    <Link key={index+1} to={`/play/${game.id}/${this.props.allGames.id}`}>
+                        <h1>Game {index+1}</h1>
+                        {game.users.length === 1 ? (<p>Your team is empty!</p>) : (
+                          <div>
+                            <h3>Teammates: </h3>
+                            {game.users.filter(user => user.id !==this.props.allGames.id).map(user => (
                             <p key={user.id}>{user.firstName} {user.lastName}</p>)
-                        )))}
+                            )
+                        }
+                        </div>)}
+                        </Link>
                         </div>
-                    </Link>)))}
+                    )))}
+            </div>
             </div>
         )
     }

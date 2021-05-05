@@ -5,6 +5,7 @@ import { createUserThunkCreator, getUserThunkCreator } from '../redux/userReduce
 import { getGameUsersThunkCreator } from '../redux/gameUsers';
 import { Redirect } from 'react-router-dom';
 import Login from './Login';
+import Header from './Header';
 
 export class NewGame extends React.Component {
     constructor(){
@@ -46,13 +47,6 @@ export class NewGame extends React.Component {
         }
     }
 
-    // async loadGame(){
-    //     await this.props.getGameUsers(this.state.gameCode);
-    //     // this.setState({
-    //     //     url: gameLoaded
-    //     // })
-    // }
-
     render() {
         let userSelected = this.state.userSelected;
         const colors = ['Red', 'Orange', 'Green', 'Blue', 'Purple'];
@@ -60,12 +54,14 @@ export class NewGame extends React.Component {
         //console.log(userColors);
         return (
             <div>
+                <Header />
+            <div className="home">
                 {this.state.redirect ? (<Redirect push to={`/allgames/${this.props.user.id}`}/>) : null}
                 {userSelected === false ?
                 <div> 
                     <Login path={this.props.match.path} redirect={()=> this.setState({redirect: true})}onDone={()=> this.setState({userSelected:true})} />
                 </div> : 
-                <div>
+                <div className="userLogin">
                     <label>Select your color</label>
                     <select name="color" onChange={this.handleChange} value={this.state.color}>
                         {/* {colors.filter()} */}
@@ -76,7 +72,7 @@ export class NewGame extends React.Component {
                         <option value="Purple">Purple</option>
                     </select>
                 {this.state.url === 'join' ? (
-                    <form onSubmit={this.onClick}>
+                    <form className="userLogin" onSubmit={this.onClick}>
                         <p>Enter the six digit code of the game you want to join</p>
                         <input placeholder="Game Code" type="text" name="gameCode" value={this.state.gameCode} onChange={this.handleChange} />
                         <button type="submit">Join Game</button>
@@ -91,6 +87,7 @@ export class NewGame extends React.Component {
                 }
                 
                 
+            </div>
             </div>
         );
     }
