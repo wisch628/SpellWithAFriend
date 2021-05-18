@@ -6,6 +6,7 @@ import NewGame from './NewGame';
 import Login from './Login';
 import Home from './Home';
 import AllGames from './AllGames';
+import Data from './Data';
 
 const Routes = () => {
   return (

@@ -11,6 +11,9 @@ const Words = db.define('words', {
   word: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  score: {
+    type: Sequelize.INTEGER
   }
 })
 

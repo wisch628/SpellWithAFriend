@@ -18,10 +18,30 @@ router.get('/correct/:id', async (req, res, next) => {
 
 router.post('/add', async (req, res, next) => {
     try {
-    const newWord = await Words.create(req.body);
-    const game = await Games.findByPk(req.body.gameId)
-    await game.addWord(newWord);
-    res.status(201).send(newWord);
+        console.log(req.body);
+    if (req.body.data.answers.includes(req.body.word)) {
+        let newWordBody = {
+            userId: req.body.userId,
+            gameId: req.body.gameId,
+            word: req.body.word,
+            score: 0
+        }
+        if (req.body.word.length === 4) {
+            newWordBody.score = 1;
+        } else {
+            newWordBody.score = req.body.word.length;
+            if (req.body.data.pangrams.includes(req.body.word)) {
+                newWordBody.score+=7
+            }
+        }
+        const newWord = await Words.create(newWordBody);
+        const game = await Games.findByPk(req.body.gameId)
+        await game.addWord(newWord);
+        res.status(201).send(newWord);
+    } else {
+        throw new Error('that word is not in the list');
+    }
+    
     } catch (error) {
         next(error);
     }

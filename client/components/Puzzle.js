@@ -10,6 +10,9 @@ import { Link } from 'react-router-dom';
 import InvitePopUp from './InvitePopUp';
 import ChatBox from './ChatBox';
 import Loading from './Loading'
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 
 class Puzzle extends React.Component {
     constructor() {
@@ -20,6 +23,7 @@ class Puzzle extends React.Component {
         seen: false,
         chat: false,
         team: false,
+        score: 0,
         alert: {
           class: 'white',
           message: '',
@@ -31,6 +35,7 @@ class Puzzle extends React.Component {
       this.handleKeyPress = this.handleKeyPress.bind(this);
       this.letterClick = this.letterClick.bind(this);
       this.togglePopUp = this.togglePopUp.bind(this);
+      this.initialScore = this.initialScore.bind(this);
 
     }
 
@@ -55,58 +60,32 @@ class Puzzle extends React.Component {
       })
   }
 
-  handleKeyPress(event) {
+  async handleKeyPress(event) {
       if (event.key === 'Enter') {
-        let newAlert = {};
           const newWord = this.state.currentWord.toLowerCase();
           //let correct = this.props.correctWords;
           let string = this.props.data.centerLetter + this.props.data.outerLetters.join("");
           let regex = new RegExp(`^[${string}]*$`);
           const correctWords = this.props.words.map(wordObject => wordObject.word);
           if (newWord.length <= 3) {
-            newAlert = {
-              class: 'black',
-              message: 'Too short'
-            };
+            toast.error('Too Short!')
           }
           else if (regex.test(newWord) === false ) {
-            newAlert = {
-              class: 'black',
-              message: 'Bad letters'
-            };
+            toast.error('Bad Letters!')
           } else if (newWord.includes(this.props.data.centerLetter) === false) {
-            newAlert = {
-              class: 'black',
-              message: 'Missing center letter'
-            };
+            toast.error('Missing center letter!')
           } else if (this.props.data.answers.indexOf(newWord) === -1) {
-              newAlert = {
-                  class: 'black',
-                  message: 'Not in word list'
-                };
+            toast.error('Not in word list!!')
           } else if (correctWords.includes(newWord)) {
-              newAlert = {
-                class: 'black',
-                message: 'You already got that word!'
-              };
+            toast.error('You already got that word!')
           } else {
               if (this.props.data.pangrams.includes(newWord))
-              {
-                newAlert = {
-                  class: 'yellow',
-                  message: 'Panagram!' 
-              }
-            } else {
-                newAlert = {
-                  class: 'white',
-                  message: '' 
-                };
-              }
+              {toast.warning('Panagram!')
+            }
               
-              this.props.addWord(newWord, this.props.match.params.gameId, this.props.match.params.userId);
+              await this.props.addWord(newWord, this.props.match.params.gameId, this.props.match.params.userId, this.props.data);
               }
           this.setState({
-            alert: newAlert,
             currentWord: ''
         })
           }
@@ -121,14 +100,39 @@ class Puzzle extends React.Component {
       await this.props.getUser(thisUser.email);
       this.setState({
         loading: false, 
-        outside: this.props.data.outerLetters
+        outside: this.props.data.outerLetters,
+        score: 0
       })
     }
+    // componentDidUpdate(prevProps) {
+    //   if (prevProps.words.length !== this.props.words.length && this.props.words) {
+    //     this.initialScore();
+    //   }
+    // }
   
     togglePopUp(input){
       this.setState({
         [input]: !this.state[input]
       })
+    }
+
+    initialScore() {
+      const words = this.props.words || [];
+      console.log(words);
+      function callBack(accumulator, currentValue) {
+        if (currentValue.length === 4) {
+          accumualtor+= 1;
+        } else {
+          accumulator+=currentValue.length;
+          if (this.props && this.props.data.pangrams.includes(currentValue)) {
+            accumulator += 7;
+          }
+        }
+      }
+      let newScore = words.reduce(callBack, 0);
+      this.setState({
+        score: newScore
+      }) 
     }
 
     render() {
@@ -141,7 +145,6 @@ class Puzzle extends React.Component {
         const outside = this.state.outside.map(letter => letter.toUpperCase());
         const center = data.centerLetter;
         const correctWords = this.props.words || [];
-        console.log(this.props, 'props');
         var style = { backgroundColor: 'white' };
 
         return (
@@ -154,7 +157,7 @@ class Puzzle extends React.Component {
             <h3>Color: <span className={this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}>{this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}</span></h3>
             <button onClick={() => this.togglePopUp('seen')}>Invite Friends</button>
             <Link to={`/allgames/${this.props.user.id}`}><button>Load other games</button> </Link>
-            <button>View your stats</button>
+            {/* <button onClick={()}>View your stats</button> */}
             <button onClick={() => this.togglePopUp('team')}>Your Team</button>
           </nav>
           <nav className="bottom">
@@ -234,7 +237,7 @@ class Puzzle extends React.Component {
     return {
       getData: () => dispatch(todaysDataThunkCreator()), 
       getWords: (id) => dispatch(getWordsThunkCreator(id)),
-      addWord: (wordObject, gameId, userId) => dispatch(addWordThunkCreator(wordObject, gameId, userId)),
+      addWord: (wordObject, gameId, userId, data) => dispatch(addWordThunkCreator(wordObject, gameId, userId, data)),
       getGameUsers: (gameId) => dispatch(getGameUsersThunkCreator(gameId)),
       getUser: (email) => dispatch(getUserThunkCreator(email)),
       getGame: (gameId) => dispatch(getGameThunkCreator(gameId))

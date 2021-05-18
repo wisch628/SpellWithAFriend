@@ -6,9 +6,9 @@ const seed = async () => {
   try {
     await db.sync({ force: true });
     const users = await Promise.all([
-      User.create({  firstName: 'Hannah', lastName: 'Wischnia', email: 'hannah@mail.com'}),
-      User.create({  firstName: 'Dom', lastName: 'Zona', email: 'dom@mail.com' }),
-      User.create({  firstName: 'Brooke', lastName: 'Sterneck', email: 'brooke@mail.com' }),
+      User.create({  firstName: 'Hannah', lastName: 'Wischnia', email: 'hannah@mail.com', password: 'hannah123'}),
+      User.create({  firstName: 'Dom', lastName: 'Zona', email: 'dom@mail.com', password: 'dom123' }),
+      User.create({  firstName: 'Brooke', lastName: 'Sterneck', email: 'brooke@mail.com', password: 'brooke123' }),
     ]);
 
     const [hannah, dom, brooke] = users;

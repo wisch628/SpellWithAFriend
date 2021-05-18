@@ -41,9 +41,10 @@ export class NewGame extends React.Component {
     onClick(event) {
         event.preventDefault();
         if (this.props.match.path === "/new") {
-            this.props.createGame(this.props.user.id, this.state.color);
+            console.log(this.props.auth);
+            this.props.createGame(this.props.auth.id, this.state.color);
         } else if (this.props.match.path === "/join") {
-            this.props.joinGame(this.props.user.id, this.state.color, this.state.gameCode);
+            this.props.joinGame(this.props.auth.id, this.state.color, this.state.gameCode);
         }
     }
 
@@ -96,7 +97,7 @@ export class NewGame extends React.Component {
 const mapState = (state) => {
     return {
       game: state.game,
-      user: state.user,
+      auth: state.auth,
       gameUsers: state.gameUsers
     };
   };
