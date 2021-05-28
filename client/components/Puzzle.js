@@ -63,7 +63,6 @@ class Puzzle extends React.Component {
   async handleKeyPress(event) {
       if (event.key === 'Enter') {
           const newWord = this.state.currentWord.toLowerCase();
-          //let correct = this.props.correctWords;
           let string = this.props.data.centerLetter + this.props.data.outerLetters.join("");
           let regex = new RegExp(`^[${string}]*$`);
           const correctWords = this.props.words.map(wordObject => wordObject.word);
@@ -83,7 +82,7 @@ class Puzzle extends React.Component {
               {toast.warning('Panagram!')
             }
               
-              await this.props.addWord(newWord, this.props.match.params.gameId, this.props.match.params.userId, this.props.data);
+              await this.props.addWord(newWord, this.props.match.params.gameId, this.props.user.id, this.props.data);
               }
           this.setState({
             currentWord: ''
@@ -92,23 +91,23 @@ class Puzzle extends React.Component {
       }
 
     async componentDidMount () {
-      await this.props.getData();
-      await this.props.getGame(this.props.match.params.gameId);
-      await this.props.getWords(this.props.match.params.gameId);
-      await this.props.getGameUsers(this.props.match.params.gameId);
-      const thisUser = this.props.gameUsers.filter(user => user.id === Number(this.props.match.params.userId))[0];
-      await this.props.getUser(thisUser.email);
-      this.setState({
-        loading: false, 
-        outside: this.props.data.outerLetters,
-        score: 0
-      })
+      this.props.getData();
+      this.props.getGame(this.props.match.params.gameId, this.props.user.id);
+      this.props.getWords(this.props.match.params.gameId);
+      this.props.getGameUsers(this.props.match.params.gameId);
+      const thisUser = this.props.gameUsers.filter(user => user.id === Number(this.props.user.id))[0];
+      //await this.props.getUser(thisUser.email);
     }
-    // componentDidUpdate(prevProps) {
-    //   if (prevProps.words.length !== this.props.words.length && this.props.words) {
-    //     this.initialScore();
-    //   }
-    // }
+    componentDidUpdate(prevProps) {
+      if (prevProps.data !== this.props.data ) {
+        if (this.props.data) {
+          this.setState({
+            loading: false, 
+            outside: this.props.data.outerLetters,
+            score: 0
+          })}
+      }
+    }
   
     togglePopUp(input){
       this.setState({
@@ -138,7 +137,7 @@ class Puzzle extends React.Component {
     render() {
       if (this.state.loading === true) {
         return (
-          <Loading message="Loading your puzzle"/>
+          <Loading />
         )
       } else {
         const data = this.props.data || {};
@@ -146,7 +145,7 @@ class Puzzle extends React.Component {
         const center = data.centerLetter;
         const correctWords = this.props.words || [];
         var style = { backgroundColor: 'white' };
-
+      console.log(this.props);  
         return (
         <div style={style}>
 
@@ -157,7 +156,7 @@ class Puzzle extends React.Component {
             <h3>Color: <span className={this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}>{this.props.gameUsers.filter(user => user.id === this.props.user.id)[0].games[0]['user-game-as'].color}</span></h3>
             <button onClick={() => this.togglePopUp('seen')}>Invite Friends</button>
             <Link to={`/allgames/${this.props.user.id}`}><button>Load other games</button> </Link>
-            {/* <button onClick={()}>View your stats</button> */}
+            <Link to="/data"><button>View your stats</button></Link>
             <button onClick={() => this.togglePopUp('team')}>Your Team</button>
           </nav>
           <nav className="bottom">
@@ -228,7 +227,7 @@ class Puzzle extends React.Component {
       data: state.data,
       words: state.words,
       gameUsers: state.gameUsers,
-      user: state.user,
+      user: state.auth,
       game: state.game
     };
   };
@@ -240,7 +239,7 @@ class Puzzle extends React.Component {
       addWord: (wordObject, gameId, userId, data) => dispatch(addWordThunkCreator(wordObject, gameId, userId, data)),
       getGameUsers: (gameId) => dispatch(getGameUsersThunkCreator(gameId)),
       getUser: (email) => dispatch(getUserThunkCreator(email)),
-      getGame: (gameId) => dispatch(getGameThunkCreator(gameId))
+      getGame: (gameId, userId) => dispatch(getGameThunkCreator(gameId, userId))
     };
   };
   

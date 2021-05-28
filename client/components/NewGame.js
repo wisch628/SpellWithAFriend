@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createGameThunkCreator, joinGameThunkCreator } from '../redux/game';
-import { createUserThunkCreator, getUserThunkCreator } from '../redux/userReducer';
+import { createUserThunkCreator } from '../redux/userReducer';
 import { getGameUsersThunkCreator } from '../redux/gameUsers';
 import { Redirect } from 'react-router-dom';
 import Login from './Login';
@@ -11,8 +11,7 @@ export class NewGame extends React.Component {
     constructor(){
         super();
         this.state = {
-            color: 'Red', 
-            userSelected: false, 
+            color: 'Red',
             gameCode: '', 
             redirect: false,
             url: ''
@@ -41,27 +40,21 @@ export class NewGame extends React.Component {
     onClick(event) {
         event.preventDefault();
         if (this.props.match.path === "/new") {
-            console.log(this.props.auth);
-            this.props.createGame(this.props.auth.id, this.state.color);
+            this.props.createGame(this.props.user.id, this.state.color);
         } else if (this.props.match.path === "/join") {
-            this.props.joinGame(this.props.auth.id, this.state.color, this.state.gameCode);
+            this.props.joinGame(this.props.user.id, this.state.color, this.state.gameCode);
         }
     }
 
     render() {
-        let userSelected = this.state.userSelected;
         const colors = ['Red', 'Orange', 'Green', 'Blue', 'Purple'];
         //const userColors = this.props.gameUsers || [];
-        //console.log(userColors);
+        console.log(this.props);
         return (
             <div>
                 <Header />
             <div className="home">
                 {this.state.redirect ? (<Redirect push to={`/allgames/${this.props.user.id}`}/>) : null}
-                {userSelected === false ?
-                <div> 
-                    <Login path={this.props.match.path} redirect={()=> this.setState({redirect: true})}onDone={()=> this.setState({userSelected:true})} />
-                </div> : 
                 <div className="userLogin">
                     <label>Select your color</label>
                     <select name="color" onChange={this.handleChange} value={this.state.color}>
@@ -85,7 +78,7 @@ export class NewGame extends React.Component {
                 )}
                 
                 </div>
-                }
+                
                 
                 
             </div>
@@ -97,7 +90,7 @@ export class NewGame extends React.Component {
 const mapState = (state) => {
     return {
       game: state.game,
-      auth: state.auth,
+      user: state.auth,
       gameUsers: state.gameUsers
     };
   };
@@ -106,7 +99,6 @@ const mapState = (state) => {
     return {
       createGame: (userId, color) => dispatch(createGameThunkCreator(userId, color, history)),
       createUser: (user) => dispatch(createUserThunkCreator(user)),
-      getUser: (email) => dispatch(getUserThunkCreator(email)),
       joinGame: (userId, color, gameCode) => dispatch(joinGameThunkCreator(userId, color, gameCode, history)),
       getGameUsers: (gameCode) => dispatch(getGameUsersThunkCreator(gameCode))
     };

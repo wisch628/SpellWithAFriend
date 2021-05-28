@@ -20,9 +20,9 @@ const joinGame = (game) => ({
 })
 
 
-export const getGameThunkCreator = (gameId) => {
+export const getGameThunkCreator = (gameId, userId) => {
     return async (dispatch) => {
-        const response = await Axios.get(`/api/game/${gameId}`);
+        const response = await Axios.get(`/api/game/${gameId}/${userId}`);
         const game = response.data;
         dispatch(getGame(game));
     }
@@ -34,7 +34,7 @@ export const createGameThunkCreator = (userId, color, history) => {
         const game = response.data;
         console.log(game);
         dispatch(createGame(game));
-        history.push(`/play/${game.id}/${userId}`)
+        history.push(`/play/${game.id}/`)
     }
 }
 
@@ -43,7 +43,7 @@ export const joinGameThunkCreator = (userId, color, gameCode, history) => {
         const response = await Axios.post(`/api/game/join/${gameCode}`, {userId: userId, color: color});
         const game = response.data;
         dispatch(joinGame(game));
-        history.push(`/play/${game.id}/${userId}`)
+        history.push(`/play/${game.id}/`)
     }
 }
 

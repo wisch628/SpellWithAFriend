@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createUserThunkCreator, getUserThunkCreator } from '../redux/userReducer';
 import { Link } from 'react-router-dom';
 import { authenticateThunkCreator } from '../redux/auth';
+import Header from './Header';
 
 class Login extends React.Component {
     constructor() {
@@ -29,7 +30,7 @@ class Login extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         await this.props.authenticate(this.state.email, this.state.password, this.state.userAction, this.state.firstName, this.state.lastName);
-        this.props.onDone();
+        // this.props.onDone();
     }
 
     handleChange(event) {
@@ -42,11 +43,11 @@ class Login extends React.Component {
         console.log(this.props)
         return (
             <div>
-                <div>
-                {/* {error && error.response && <div> {error.response.data} </div>} */}
+                <Header />
+                <div className="home">
                     {this.state.userAction === null ? (
                     <div>
-                        <h1>If you want to save your game stats, either sign up or login as a user. Otherwise, you can continue as a guest!</h1>
+                        <h1>Welcome to the multi-player Spelling Bee! Either login or sign up to continue</h1>
                         <button onClick={()=>this.onChoose('login')}>Login</button>
                         {this.props.path === "/games" ? (this.onChoose('login')) : (null)}
                         <button onClick={() => this.onChoose('signup')}>Sign Up</button>

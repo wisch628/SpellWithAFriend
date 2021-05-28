@@ -1,17 +1,16 @@
-import React from 'react';
+import React from 'react'
+// import styled from 'styled-components';
+// import { Button, Container } from '../GlobalStyles';
 
-const Loading = (props) => {
+const Loading = () => {
   
     return (
-      <div className="loader-container">
-        <div className="loader">
-        <div className="loader-bar" style={{width:`${props.progress}%`}}/>
-      </div>
-        <span className="loading-text">
-          {props.message ? props.message : "Loading..."}
-        </span>
-      </div>
+        <div >
+           <h1>Pulling Today's NYTimes Puzzle...</h1>
+           <div className="loader"></div>
+        </div>
     )
-  }
+}
 
-  export default Loading;
+
+export default Loading

@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Puzzle from './Puzzle';
 import Error from './Error';
 import NewGame from './NewGame';
@@ -7,26 +8,58 @@ import Login from './Login';
 import Home from './Home';
 import AllGames from './AllGames';
 import Data from './Data';
+import {me} from '../redux/auth';
 
-const Routes = () => {
+class Routes extends React.Component {
+  componentDidMount() {
+    this.props.loadInitialData();
+  }
+  render() {
+  const { isLoggedIn } = this.props;
   return (
     <Router>
       <div>
         <main>
+        {isLoggedIn ? (
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/new" component={NewGame} />
             <Route exact path="/join" component={NewGame} />
             <Route exact path="/games" component={NewGame} />
             <Route exact path="/allgames/:userId" component={AllGames} />
-            <Route exact path="/login" component={Login} />
-            <Route path={'/play/:gameId/:userId'} component={Puzzle} />
+            {/* <Route exact path="/login" component={Login} /> */}
+            <Route exact path="/data" component={Data} />
+            <Route path={'/play/:gameId/'} component={Puzzle} />
             <Route component={Error} />
           </Switch>
+        ) : (
+          <Switch>
+          <Route path="/" component={Login} />
+          <Redirect to="/" />
+          </Switch>
+
+        )
+        
+        }
         </main>
       </div>
     </Router>
   );
+}
+}
+
+const mapState = (state) => {
+  return {
+    isLoggedIn: !!state.auth.id,
+  };
 };
 
-export default Routes;
+const mapDispatch = (dispatch) => {
+  return {
+    loadInitialData() {
+      dispatch(me());
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(Routes);
