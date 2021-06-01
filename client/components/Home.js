@@ -19,7 +19,7 @@ class Home extends React.Component {
                 <Link to="/join">
                     <button>Join an Active Game</button>
                 </Link>
-                <Link to="/games">
+                <Link to="/allgames">
                     <button>Load Your Active Games</button>
                 </Link>
             </div>

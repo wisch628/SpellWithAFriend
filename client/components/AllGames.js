@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUserThunkCreator } from '../redux/userReducer';
 import { getAllGamesThunkCreator} from '../redux/allGames';
 import { Link } from 'react-router-dom'; 
 import Header from './Header';
 
 class AllGames extends React.Component {
     async componentDidMount(){
-      await this.props.getAllGames(this.props.match.params.userId);
+      await this.props.getAllGames(this.props.user.id);
     }
     render() {
         const allGames = this.props.allGames.games || [];
@@ -41,13 +40,12 @@ class AllGames extends React.Component {
 const mapState = (state) => {
     return {
       allGames: state.allGames,
-      user: state.user
+      user: state.auth
     };
   };
   
   const mapDispatch = (dispatch, { history }) => {
     return {
-      getUser: (email) => dispatch(getUserThunkCreator(email)),
       getAllGames: (userId) => dispatch(getAllGamesThunkCreator(userId))
     };
   };
