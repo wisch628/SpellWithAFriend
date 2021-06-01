@@ -78,6 +78,15 @@ const hashPassword = async (user) => {
   }
 };
 
+const capName =  name =>  {
+  return name.slice(0, 1).toUpperCase() + name.slice(1).toLowerCase()
+}
+
+User.beforeCreate( (user) => {
+  user.firstName = capName(user.firstName)
+  user.lastName = capName(user.lastName)
+});
+
 User.beforeCreate(hashPassword);
 User.beforeUpdate(hashPassword);
 User.beforeBulkCreate((users) => {

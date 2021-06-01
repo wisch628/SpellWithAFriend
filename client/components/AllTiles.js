@@ -18,7 +18,6 @@ const AllTiles = (props) => {
       <button type="button" onClick={shuffleLetters}>
         Shuffle Letters
       </button>
-      <p>{outside[0]}</p>
       <div className="game-container" onClick={props.letterClick}>
         <div className="game-wrapper">
           <Hexagon letter={outside[0]} className={["hex", "odd"].join(" ")} />

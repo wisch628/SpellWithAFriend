@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logOutThunk } from '../redux/auth';
 
 const GameTopNav = (props) => {
   return (
@@ -29,10 +30,12 @@ const GameTopNav = (props) => {
       <Link to={`/allgames`}>
         <button>Load other games</button>{" "}
       </Link>
-      <Link to="/data">
+      {/* <Link to="/data">
         <button>View your stats</button>
-      </Link>
+      </Link> */}
       <button onClick={() => props.togglePopUp("team")}>Your Team</button>
+      <Link to="/"> 
+      <button onClick={props.logOut}>Logout</button></Link>
     </nav>
   );
 };
@@ -45,5 +48,12 @@ const mapState = (state) => {
       user: state.auth
     };
   };
+
+  const mapDispatch = (dispatch) => {
+    return {
+        logOut: () => 
+            dispatch(logOutThunk())
+  }
+}
   
-  export default connect(mapState, null)(GameTopNav);
+  export default connect(mapState, mapDispatch)(GameTopNav);

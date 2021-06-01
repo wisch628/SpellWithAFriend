@@ -51,7 +51,6 @@ class Login extends React.Component {
                         <button onClick={()=>this.onChoose('login')}>Login</button>
                         {this.props.path === "/games" ? (this.onChoose('login')) : (null)}
                         <button onClick={() => this.onChoose('signup')}>Sign Up</button>
-                        {/* <button onClick={this.handleSubmit}>Play as a Guest</button> */}
                      </div>) : (
 
                         <form id="userLogin" className="userLogin" onSubmit={this.handleSubmit}>
@@ -64,7 +63,7 @@ class Login extends React.Component {
                         ) : (<h1>Login</h1>)}
                        <input placeholder="Email" type="text" name="email" value={this.state.email} onChange={this.handleChange}/>
                        <input placeholder="Password" type="password" value={this.state.password} name="password" onChange={this.handleChange} />
-                        <button type="submit">{this.state.userAction}</button>
+                        <button type="submit">{this.state.userAction === 'signup' ? ('Sign Up') : ('Login')}</button>
                     </form>
                         )
 
