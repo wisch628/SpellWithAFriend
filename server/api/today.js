@@ -93,7 +93,12 @@ router.get("/", async (req, res, next) => {
       await page.evaluate(() => JSON.stringify(window.gameData.today))
     );
     browser.close();
-    res.send(dataToday);
+    if (dataToday) {
+      res.send(dataToday);
+    } else {
+      throw Error("NYTimes data could not be loaded");
+    }
+    
   } catch (error) {
     error.message="NYTimes data could not be loaded"
     next(error);

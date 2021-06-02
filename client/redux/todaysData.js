@@ -20,6 +20,7 @@ export const todaysDataThunkCreator = (history) => {
             let data = response.data;
             dispatch(getTodaysData(data));
         } catch (err) {
+            console.log(err);
             const toast = {type: 'error', message: err.response.data};
             dispatch(handleNotifications(toast))
             history.push(`/`);
