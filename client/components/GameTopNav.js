@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { logOutThunk } from '../redux/auth';
 
 const GameTopNav = (props) => {
+  
   return (
     <nav className="top">
+      <img  onClick={() => props.togglePopUp("sideMenu")} id="hamburgerMenu"src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png"></img>
       <h3>
         {props.data.displayWeekday} {props.data.displayDate}
       </h3>
@@ -26,16 +28,16 @@ const GameTopNav = (props) => {
           }
         </span>
       </h3>
+     
+     
       <button onClick={() => props.togglePopUp("seen")}>Invite Friends</button>
       <Link to={`/allgames`}>
         <button>Load other games</button>{" "}
       </Link>
-      {/* <Link to="/data">
-        <button>View your stats</button>
-      </Link> */}
       <button onClick={() => props.togglePopUp("team")}>Your Team</button>
       <Link to="/"> 
       <button onClick={props.logOut}>Logout</button></Link>
+     
     </nav>
   );
 };

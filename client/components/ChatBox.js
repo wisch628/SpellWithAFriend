@@ -86,7 +86,7 @@ class MessagesList extends React.Component {
             onChange={this.handleChange}
           />
           <span className="input-group-btn">
-            <button className="btn btn-default" type="submit">
+            <button id="chatButton" className="btn btn-default" type="submit">
               Send
             </button>
           </span>

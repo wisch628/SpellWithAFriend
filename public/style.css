@@ -9,8 +9,6 @@ body{
   background-color: white;
 }
 
-
-
   .cell-bottom {
     float: left;
 border-left: 30px solid #e6e6e6;
@@ -33,7 +31,6 @@ border-bottom: 52px solid transparent;
   background-color: #e6e6e6;
   }
 
- 
 
 .hex {
   float: left;
@@ -46,7 +43,7 @@ border-bottom: 52px solid transparent;
 }
 
 .game-wrapper {
-  width: 300px;
+  width: 290px;
 }
 
 .center .cell-center {
@@ -60,6 +57,7 @@ border-bottom: 52px solid transparent;
 .center .cell-bottom {
   border-left: 30px solid #f8cd04;
 }
+
 .special {
   padding-left: 93.5px;
 }
@@ -69,29 +67,28 @@ h5 {
   font-size: 21px;
 }
 
-.left-container {
-  margin: 50px 50px auto 100px;
-  
-}
 
 .right-container {
-  margin: auto;
   border-radius: 10px;
   border: 1px solid #e6e6e6;
   height: 300px;
-  padding: 20px;
+  padding: 30px;
   
 }
 
 .flex {
   display: flex;
   flex-direction: row-reverse;
+  flex-wrap: wrap;
   margin-top: 70px;
+  justify-content: space-evenly;
+  padding-top: 50px;
 }
 
 .game-container {
-  width: 500px;
-  margin: 30px auto auto 180px;
+  width: 290px;
+  margin: 20px auto 60px 50px;
+  height: 350px;
 }
 input {
   outline: 0;
@@ -106,21 +103,8 @@ input {
   border-width: 0 0 .5px 0;
   border-color: #e6e6e6;
   font-size: 30px;
-  margin: 0px auto auto auto;
+  margin: 0px 20px 20px;
   text-align: center;
-}
-
-#alert{
-  color: white;
-  width: 120px;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 10px;
-  font-family: arial;
-  font-weight: bold;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .white{
@@ -143,10 +127,10 @@ input {
 }
 
 .word-container {
-  width: 400px;
+  width: 330px;
   display: flex;
   flex-wrap: wrap;
-  margin-left: 40px;
+  margin-top: 40px;
 }
 
 .Red {
@@ -252,7 +236,6 @@ input {
    width: 400px;
    font-size: 24px;
    outline: .5px;
-  border-width: .5px;
   border-top: .5px solid black ;
   padding: 10px 20px 5px 20px;
   z-index: 2;
@@ -296,7 +279,6 @@ nav {
   display: flex;
   flex-wrap: nowrap;
   
-  
 }
 
 nav.top {
@@ -314,6 +296,7 @@ nav.bottom {
   color: white;
   justify-content: flex-end;
   height: 50px;
+  z-index: 1;
 }
 
 button {
@@ -435,4 +418,106 @@ nav.top button {
 
 .oneGame h1 {
   text-decoration: underline;
+}
+
+#hamburgerMenu {
+  display: none;
+}
+
+.sideMenu {
+  position: fixed;
+  height: 100%;
+  width: 200px;
+  margin: 0px;
+  padding-top: 40px;
+  left: 0;
+  background-color: white;
+  z-index: 2;
+}
+.sideMenu > a {
+  color: #333;
+  text-align: center;
+}
+.sideMenu > h4 {
+  margin: 0px 10px;
+  color: #333;
+}
+
+.sideMenu > a:hover {
+  color: #f8cd04;
+}
+#playerName {
+  display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  .right-container {
+    height: auto;
+    padding-top: 10px;
+    margin-bottom: 40px;
+  } 
+  #hamburgerMenu {
+    display: block;
+    width: 30px;
+    height: auto;
+    margin: 20px;
+    right: 0;
+
+  }
+  nav.top > button, nav.top > Link {
+    flex-basis: 100%;
+    height: 100%;
+  }
+
+  nav.top {
+    flex-wrap: wrap;
+    /* justify-content: flex-end; */
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  nav.top {
+    justify-content: flex-start;
+  }
+  .game-container {
+    margin-left: -20px;
+    margin-right: 2.5px;
+  }
+  .word-container, input {
+    width: 250px;
+  }
+
+  nav.top > h3 {
+    flex-basis: 100%;
+    height: 100%;
+  }
+
+  .messageContainer, #new-message-form {
+    right: auto;
+    left: auto;
+    width: 300px;
+  }
+
+  .right-container {
+    padding: 10px;
+    max-width: 300px;
+  } 
+ 
+  #wordField {
+    margin: auto 10px 20px;
+  }
+  .my-message {
+    width: 250px; 
+    margin-left: 30px;
+   }
+   #new-message-form {
+    border-right: .5px solid black ;
+   }
+ 
+   #chatButton {
+     display: none;
+   }
+   #playerName {
+    display: block;
+  }
 }

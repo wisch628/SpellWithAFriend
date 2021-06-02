@@ -15,6 +15,7 @@ import Loading from "./Loading";
 import GameTopNav from "./GameTopNav";
 import TeamPopUp from "./TeamPopUp";
 import WordContainer from "./WordContainer";
+import TabletMenu from './TabletMenu';
 
 class Puzzle extends React.Component {
   constructor() {
@@ -118,6 +119,9 @@ class Puzzle extends React.Component {
         <div style={style}>
           {this.state.popUp === "seen" && (
             <InvitePopUp togglePopUp={this.togglePopUp} />
+          )}
+          {this.state.popUp === "sideMenu" && (
+            <TabletMenu togglePopUp={this.togglePopUp} />
           )}
           <GameTopNav togglePopUp={this.togglePopUp} />
           <nav className="bottom">
