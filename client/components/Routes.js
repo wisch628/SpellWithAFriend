@@ -19,10 +19,8 @@ class Routes extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.toast);
     if (prevProps.toast !== this.props.toast) {
         if (this.props.toast.message) {
-            console.log(this.props.toast);
             toast[this.props.toast.type](this.props.toast.message);
           }
     }

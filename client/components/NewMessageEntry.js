@@ -26,8 +26,6 @@ constructor() {
   }
 
   render () {
-    console.log(this.state);
-    console.log(this.props, 'props');
     return (
       <form id="new-message-form" onSubmit={this.handleSubmit}>
         <div className="input-group input-group-lg">

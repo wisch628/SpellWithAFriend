@@ -18,7 +18,7 @@ class AllGames extends React.Component {
                 {allGames.length === 0 ? (<p>You don't have any open games!</p>) : 
                 (allGames.map((game, index) => 
                     (<div className="oneGame">
-                    <Link key={index+1} to={`/play/${game.id}/${this.props.allGames.id}`}>
+                    <Link key={index+1} to={`/play/${game.id}`}>
                         <h1>Game {index+1}</h1>
                         {game.users.length === 1 ? (<p>Your team is empty!</p>) : (
                           <div>

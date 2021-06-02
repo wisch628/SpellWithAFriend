@@ -24,7 +24,6 @@ router.get('/:gameId', async (req, res, next) => {
 // POST /api/messages
 router.post('/:gameId', async (req, res, next) => {
   try {
-    console.log('req.body', req.body);
     const user = await User.findByPk(Number(req.body.userId));
     const message = await Messages.create({content: req.body.message, gameId: Number(req.params.gameId), userId: Number(req.body.userId)});
     await user.addMessage(message);

@@ -28,7 +28,6 @@ router.get('/:email', async (req, res, next) => {
 router.get('/game/:gameId', async (req, res, next) => {
     try {
         let game;
-        console.log(req.params.gameId);
         if (Number(req.params.gameId)){
             game = await Games.findByPk(req.params.gameId);
         } else {

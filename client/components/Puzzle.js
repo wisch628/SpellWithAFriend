@@ -82,7 +82,6 @@ class Puzzle extends React.Component {
 
     initialScore() {
       const words = this.props.words || [];
-      console.log(words);
       function callBack(accumulator, currentValue) {
         if (currentValue.length === 4) {
           accumualtor+= 1;
@@ -168,14 +167,14 @@ class Puzzle extends React.Component {
     };
   };
   
-  const mapDispatch = (dispatch) => {
+  const mapDispatch = (dispatch, {history}) => {
     return {
-      getData: () => dispatch(todaysDataThunkCreator()), 
+      getData: () => dispatch(todaysDataThunkCreator(history)), 
       getWords: (id) => dispatch(getWordsThunkCreator(id)),
       addWord: (wordObject, gameId, userId, data) => dispatch(addWordThunkCreator(wordObject, gameId, userId, data)),
       getGameUsers: (gameId) => dispatch(getGameUsersThunkCreator(gameId)),
       getUser: (email) => dispatch(getUserThunkCreator(email)),
-      getGame: (gameId, userId) => dispatch(getGameThunkCreator(gameId, userId))
+      getGame: (gameId, userId) => dispatch(getGameThunkCreator(gameId, userId, history))
     };
   };
   

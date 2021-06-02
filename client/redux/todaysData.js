@@ -13,7 +13,7 @@ const getTodaysData = (data) => ({
 
 
 //thunk creators
-export const todaysDataThunkCreator = () => {
+export const todaysDataThunkCreator = (history) => {
     return async (dispatch) => {
         try {
             const response = await Axios.get('/api/today');
@@ -22,6 +22,7 @@ export const todaysDataThunkCreator = () => {
         } catch (err) {
             const toast = {type: 'error', message: err.response.data};
             dispatch(handleNotifications(toast))
+            history.push(`/`);
         }
     }
 }

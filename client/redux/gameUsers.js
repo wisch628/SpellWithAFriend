@@ -10,10 +10,8 @@ const getGameUsers = (users) => ({
 
 export const getGameUsersThunkCreator = (gameId) => {
     return async (dispatch) => {
-        console.log('game users thunk called');
         const response = await Axios.get(`/api/user/game/${gameId}`);
         const users = response.data;
-        console.log(users);
         dispatch(getGameUsers(users));
     }
 }

@@ -9,7 +9,6 @@ const getAllGames = (games) => ({
 
 export const getAllGamesThunkCreator = (userId) => {
     return async (dispatch) => {
-        console.log(userId);
         const response = await Axios.get(`/api/game/allgames/${userId}`);
         const allGames = response.data;
         dispatch(getAllGames(allGames));

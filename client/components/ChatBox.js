@@ -22,7 +22,6 @@ class MessagesList extends React.Component {
     async handleSubmit(event) {
       event.preventDefault();
       const message = this.state.currentMessage;
-      console.log(message);
       await this.props.post(this.props.game.id, message, this.props.user.id);
       await this.setState({
         currentMessage: ''
@@ -36,7 +35,6 @@ class MessagesList extends React.Component {
 
   render() {
     const messages = this.props.messages || [];
-console.log(this.props)
     return (
       <div className="messageContainer">
         <div className="innerMessages">
@@ -48,7 +46,6 @@ console.log(this.props)
               <p>{ message.content }</p>
             </div>) : (
               <div key={message.id} className={['message', this.props.gameUsers.filter(user => user.id === message.userId)[0].games[0]['user-game-as'].color].join(' ')}>
-                {console.log(this.props.gameUsers.filter(user => user.id === message.userId)[0].games[0]['user-game-as'].color)}
                 <h4>{ message.user.firstName }</h4>
                 <p >{ message.content }</p>
             </div>

@@ -22,7 +22,6 @@ router.get('/allgames/:userId', async (req, res, next) => {
                     model: User
                 }
             }});
-        console.log(games);
         res.send(games);
     } catch (error) {
         next(error);
@@ -36,7 +35,12 @@ router.post('/join/:gameCode', async (req, res, next) => {
             code: req.params.gameCode
         }
     });
-    if (game.expiration <= new Date ()){
+    if (!game){
+        const err = new Error('Sorry, that game does not exist!');
+        err.status = 400;
+        next(err);
+    }
+    else if (game.expiration <= new Date ()){
         const err = new Error('That game has expired! Try creating a new game instead');
         err.status = 400;
         next(err);
@@ -78,9 +82,13 @@ router.get('/:gameId/:userId', async (req, res, next) => {
                 }
         })
         }
+        if (!game) {
+            const err = new Error('Sorry, that game does not exist!');
+            err.status = 400;
+            next(err);
+        }
         const gameUsers = game.users.filter(user => user.id == req.params.userId);
         //
-        console.log("game users", gameUsers)
         if (gameUsers.length === 0) {
             const err = new Error(`Sorry, you don't have access to this game`);
             err.status = 400;
@@ -100,7 +108,6 @@ router.get('/:gameId/:userId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-    console.log(req.body);
     const newGame = await Games.create();
     const user = await User.findByPk(req.body.userId);
     await newGame.addUser(user);

@@ -43,13 +43,15 @@ export class NewGame extends React.Component {
             this.props.createGame(this.props.user.id, this.state.color);
         } else if (this.props.match.path === "/join") {
             this.props.joinGame(this.props.user.id, this.state.color, this.state.gameCode);
+            this.setState({
+                gameCode: ''
+            })
         }
     }
 
     render() {
         const colors = ['Red', 'Orange', 'Green', 'Blue', 'Purple'];
         //const userColors = this.props.gameUsers || [];
-        console.log(this.props);
         return (
             <div>
                 <Header />
