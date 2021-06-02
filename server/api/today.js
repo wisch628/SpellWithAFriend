@@ -80,17 +80,23 @@ router.post("/add", async (req, res, next) => {
 router.get("/", async (req, res, next) => {
   try {
     const browser = await puppeteer.launch({
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox", '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"'],
+      ignoreDefaultArgs: ['--disable-extensions']
     });
     const page = await browser.newPage();
+    // await page.setCacheEnabled(false);
     const url = "https://www.nytimes.com/puzzles/spelling-bee";
     await page.goto(url);
+    // await page.waitForSelector(".pz-game-title");
     const dataToday = JSON.parse(
       await page.evaluate(() => JSON.stringify(window.gameData.today))
     );
-    await browser.close();
+    browser.close();
+    console.log(dataToday);
     res.send(dataToday);
   } catch (error) {
+    error.message="NYTimes data could not be loaded"
     next(error);
   }
 });

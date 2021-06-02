@@ -9,11 +9,25 @@ import Home from './Home';
 import AllGames from './AllGames';
 import Data from './Data';
 import {me} from '../redux/auth';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 
 class Routes extends React.Component {
   componentDidMount() {
     this.props.loadInitialData();
   }
+
+  componentDidUpdate(prevProps) {
+    console.log(this.props.toast);
+    if (prevProps.toast !== this.props.toast) {
+        if (this.props.toast.message) {
+            console.log(this.props.toast);
+            toast[this.props.toast.type](this.props.toast.message);
+          }
+    }
+}
+
   render() {
   const { isLoggedIn } = this.props;
   return (
@@ -49,6 +63,7 @@ class Routes extends React.Component {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    toast: state.toast
   };
 };
 

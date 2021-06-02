@@ -9,10 +9,7 @@ import { getGameThunkCreator } from '../redux/game';
 import InvitePopUp from './InvitePopUp';
 import ChatBox from './ChatBox';
 import Loading from './Loading'
-import {toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import GameTopNav from './GameTopNav';
-toast.configure()
 
 class Puzzle extends React.Component {
     constructor() {
@@ -54,9 +51,9 @@ class Puzzle extends React.Component {
           this.setState({
             currentWord: ''
         })
-        if (this.props.toast.message !== "") {
-          toast[this.props.toast.type](this.props.toast.message);
-        }
+        // if (this.props.toast.message !== "") {
+        //   toast[this.props.toast.type](this.props.toast.message);
+        // }
           }
       }
 
@@ -167,8 +164,7 @@ class Puzzle extends React.Component {
       words: state.words,
       gameUsers: state.gameUsers,
       user: state.auth,
-      game: state.game,
-      toast: state.toast
+      game: state.game
     };
   };
   

@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { handleNotifications } from './toast';
 
 //actions
 const GET_DATA = 'GET_DATA';
@@ -14,10 +15,14 @@ const getTodaysData = (data) => ({
 //thunk creators
 export const todaysDataThunkCreator = () => {
     return async (dispatch) => {
-        const response = await Axios.get('/api/today');
-        let data = response.data;
-        dispatch(getTodaysData(data));
-        //history.push('/redirectLink);
+        try {
+            const response = await Axios.get('/api/today');
+            let data = response.data;
+            dispatch(getTodaysData(data));
+        } catch (err) {
+            const toast = {type: 'error', message: err.response.data};
+            dispatch(handleNotifications(toast))
+        }
     }
 }
 

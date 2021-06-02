@@ -24,6 +24,7 @@
     "axios": "^0.21.1",
     "babel-preset-react": "^6.24.1",
     "bcrypt": "^5.0.1",
+    "browser": "^0.2.6",
     "browserslist": ">=4.16.5",
     "d3": "^6.7.0",
     "express": "^4.17.1",
@@ -43,8 +44,9 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sequelize": "^6.6.2",
-    "socket.io": "^4.0.1",
+    "socket.io": "^4.1.2",
     "socket.io-client": "^4.0.1",
+    "socket.io-parser": "^4.0.4",
     "ws": ">=7.4.6"
   },
   "devDependencies": {
