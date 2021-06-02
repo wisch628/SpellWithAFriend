@@ -11,6 +11,7 @@ router.post('/login', async (req, res, next) => {
     });
     res.send({ token: await User.authenticate(req.body), userId: user.id });
   } catch (err) {
+    err.message="Wrong Email/Password";
     next(err);
   }
 });
@@ -23,7 +24,9 @@ router.post('/signup', async (req, res, next) => {
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
       res.status(401).send('User already exists');
+      err.message="A user with that email already exists";
     } else {
+      err.message="Something went wrong at signup – please try again";
       next(err);
     }
   }

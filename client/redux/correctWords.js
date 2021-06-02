@@ -1,6 +1,6 @@
 import Axios from "axios";
 import socket from "../socket";
-import { newNotification } from "./toast";
+import { handleNotifications } from "./toast";
 
 const GET_WORDS = "GET_WORDS";
 const GOT_NEW_SERVER_WORD = "GOT_NEW_SERVER_WORD";
@@ -42,7 +42,7 @@ export const addWordThunkCreator = (word, gameId, userId, data) => {
       dispatch(getNewServerWord(newWord.word));
       socket.emit("new-word", newWord.word);
     }
-    dispatch(newNotification(newWord.toast));
+    dispatch(handleNotifications(newWord.toast));
   };
 };
 

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { handleNotifications } from './toast';
 
 const TOKEN = 'token';
 
@@ -18,7 +19,6 @@ export const setAuth = (auth) => ({ type: SET_AUTH, auth });
 export const me = () => async (dispatch) => {
   const token = window.localStorage.getItem(TOKEN);
   if (token) {
-    console.log('token exists', token);
     const res = await axios.get('/api/auth/me', {
       headers: {
         authorization: token,
@@ -39,10 +39,14 @@ export const authenticateThunkCreator =
         firstName,
         lastName
       });
-      window.localStorage.setItem(TOKEN, res.data.token);
-      dispatch(me());
+      if (res.data.token) {
+        window.localStorage.setItem(TOKEN, res.data.token);
+        dispatch(me());
+      }
     } catch (authError) {
-      return dispatch(setAuth({ error: authError }));
+      const toast = {type: 'error', message: authError.response.data};
+      dispatch(handleNotifications(toast))
+        
     }
   };
 

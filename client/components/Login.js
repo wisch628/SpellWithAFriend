@@ -4,6 +4,9 @@ import { createUserThunkCreator, getUserThunkCreator } from '../redux/userReduce
 import { Link } from 'react-router-dom';
 import { authenticateThunkCreator } from '../redux/auth';
 import Header from './Header';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 
 class Login extends React.Component {
     constructor() {
@@ -30,7 +33,13 @@ class Login extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         await this.props.authenticate(this.state.email, this.state.password, this.state.userAction, this.state.firstName, this.state.lastName);
-        // this.props.onDone();
+        this.setState({
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: ''
+        })
+
     }
 
     handleChange(event) {
@@ -39,8 +48,17 @@ class Login extends React.Component {
         })
     }
 
+    componentDidUpdate(prevProps) {
+        console.log(this.props.toast);
+        if (prevProps.toast !== this.props.toast) {
+            if (this.props.toast.message) {
+                console.log(this.props.toast);
+                toast[this.props.toast.type](this.props.toast.message);
+              }
+        }
+    }
     render(){
-        console.log(this.props)
+        console.log('props', this.props)
         return (
             <div>
                 <Header />
@@ -48,6 +66,7 @@ class Login extends React.Component {
                     {this.state.userAction === null ? (
                     <div>
                         <h1>Welcome to the multi-player Spelling Bee! Either login or sign up to continue</h1>
+                        {this.props.toast && <h1>toasty</h1>}
                         <button onClick={()=>this.onChoose('login')}>Login</button>
                         {this.props.path === "/games" ? (this.onChoose('login')) : (null)}
                         <button onClick={() => this.onChoose('signup')}>Sign Up</button>
@@ -78,7 +97,7 @@ class Login extends React.Component {
 const mapState = (state) => {
     return {
       user: state.user,
-      error: state.auth.error
+      toast: state.toast
     };
   };
   
