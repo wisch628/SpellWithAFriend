@@ -5,7 +5,7 @@ import React from 'react'
 const Loading = () => {
   
     return (
-        <div >
+        <div className="loaderContainer" >
            <h1>Pulling Today's NYTimes Puzzle...</h1>
            <div className="loader"></div>
         </div>

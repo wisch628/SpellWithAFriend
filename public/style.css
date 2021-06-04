@@ -347,6 +347,7 @@ nav.bottom > button {
   font-size: 20px;
 }
 
+
 nav.top button {
   height: 30px;
 }
@@ -365,14 +366,18 @@ nav.top button {
 
 
 .loader {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #f7da22;
+  border: 30px solid #f3f3f3;
+  border-top: 30px solid #f7da22;
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
   animation: spin 1.8s linear infinite;
   margin: 50px auto;
   padding: 20px;
+}
+
+.loaderContainer {
+margin-top: 15%;
 }
 
 @keyframes spin {
@@ -383,10 +388,13 @@ nav.top button {
 .home {
   /* margin: 50px; */
   position: fixed;
-  padding: 130px 60px;
+  padding: 130px 60px 0px;
+  height: 100vh;
   width: 100vw;
-  height: auto;
   background-color: #f7da22;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   /* overflow: hidden; */
   margin: 0px;
   left: 0;
@@ -395,6 +403,7 @@ nav.top button {
   top: 0;
   overflow-y:scroll;
   overflow-x:hidden;
+  z-index: 1;
 }
 
 .home button {
@@ -521,16 +530,19 @@ nav.top button {
   }
 }
 
-/* @keyframes slidein {
-  from {
-    left: -200px;
-    
-  }
+/* footer  {
+  margin: 0px;
+  top: 90vh;
+  left: 0;
+  bottom: 0;
+  text-align: center;
+  /* background-color:white; */
+  /* width: 100vw;
+  z-index: -1;
+  position: fixed;
+  overflow: hidden; */
 
-  to {
-    left: 0;
-  }
-} */
+ */
 
 .sideMenu > a {
   color: #333;

@@ -32,6 +32,9 @@ class AllGames extends React.Component {
                         </div>
                     )))}
             </div>
+            <footer>
+            <p>Built by <a target="blank" href="https://www.linkedin.com/in/hannah-wischnia/">Hannah Wischnia</a></p>
+            </footer>
             </div>
         )
     }

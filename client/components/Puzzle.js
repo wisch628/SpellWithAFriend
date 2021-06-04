@@ -132,6 +132,7 @@ class Puzzle extends React.Component {
           )}  {(this.state.popUp === "out") && <TabletMenu classProp="out" togglePopUp={this.togglePopUp} />}
           <GameTopNav togglePopUp={this.togglePopUp} />
           <nav className="bottom">
+          
             <button onClick={() => this.togglePopUp("chat")}>Chat Box</button>
           </nav>
           {this.state.popUp === "team" && (
