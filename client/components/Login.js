@@ -47,12 +47,14 @@ class Login extends React.Component {
     
     render(){
         return (
-            <div>
-                <Header />
-                <div className="home">
+            // <div className="home">
+            //     <Header />
+                <div>
                     {this.state.userAction === null ? (
                     <div>
-                        <h1>Welcome to the multi-player Spelling Bee! Either login or sign up to continue</h1>
+                        {/* <img className="bee" src="https://lh3.googleusercontent.com/proxy/pgMGfjCPQ53av-WC8rmIrXLCE_ZOyRjchn090A76ssBM7kXsjnj7ddA6lWJesRYJp-yBXuZs_9aHF5aCDtnoZSAE4lDJAD0"/> */}
+                        <h1>Welcome to the multi-player Spelling Bee!</h1>
+                        <h2> Either login or sign up to continue</h2>
                         <button onClick={()=>this.onChoose('login')}>Login</button>
                         {this.props.path === "/games" ? (this.onChoose('login')) : (null)}
                         <button onClick={() => this.onChoose('signup')}>Sign Up</button>
@@ -75,7 +77,7 @@ class Login extends React.Component {
                      }
                      
                 </div>
-            </div>
+            // </div>
         )
     }
 }

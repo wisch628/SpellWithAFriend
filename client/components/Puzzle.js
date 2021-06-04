@@ -24,7 +24,7 @@ class Puzzle extends React.Component {
       loading: true,
       currentWord: "",
       score: 0,
-      popUp: null,
+      popUp: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -82,9 +82,16 @@ class Puzzle extends React.Component {
 
   togglePopUp(input) {
     if (input === this.state.popUp) {
-      this.setState({
-        popUp: null,
-      });
+      if (input === "sideMenu") {
+        this.setState({
+          popUp: "out"
+        })
+      } else {
+        this.setState({
+          popUp: null,
+        });
+      }
+      
     } else {
       this.setState({
         popUp: input,
@@ -121,8 +128,8 @@ class Puzzle extends React.Component {
             <InvitePopUp togglePopUp={this.togglePopUp} />
           )}
           {this.state.popUp === "sideMenu" && (
-            <TabletMenu togglePopUp={this.togglePopUp} />
-          )}
+            <TabletMenu togglePopUp={this.togglePopUp} classProp="in"  />
+          )}  {(this.state.popUp === "out") && <TabletMenu classProp="out" togglePopUp={this.togglePopUp} />}
           <GameTopNav togglePopUp={this.togglePopUp} />
           <nav className="bottom">
             <button onClick={() => this.togglePopUp("chat")}>Chat Box</button>

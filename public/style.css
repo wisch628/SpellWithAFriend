@@ -1,12 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
 * {
   box-sizing: border-box;
   font-family: 'Roboto Slab', serif;
+  font-weight: 200;
   
 }
 body{
   text-align: center;
   background-color: white;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+.bee {
+  width: 100px;
+  height: auto;
 }
 
   .cell-bottom {
@@ -47,15 +57,15 @@ border-bottom: 52px solid transparent;
 }
 
 .center .cell-center {
-  background-color: #f8cd04;
+  background-color: #f7da22;
 }
 
 .center .cell-top {
-  border-right: 30px solid #f8cd04;
+  border-right: 30px solid #f7da22;
 }
 
 .center .cell-bottom {
-  border-left: 30px solid #f8cd04;
+  border-left: 30px solid #f7da22;
 }
 
 .special {
@@ -116,7 +126,7 @@ input {
 }
 
 .yellow{
-  background-color: #f8cd04;
+  background-color: #f7da22;
 }
 
 .correct{
@@ -178,7 +188,7 @@ input {
 }
 
 .close:hover {
-  color: #f8cd04;
+  color: #f7da22;
   cursor: pointer;
 }
 
@@ -287,8 +297,33 @@ background-color: #e6e6e6;
 top: 0;
 align-items: center;
 height: 70px;
-
+z-index: 5;
 }
+
+.header {
+  justify-content: space-between;
+  background-color:white;
+  top: 0;
+  align-items: center;
+  height: 70px;
+  border-bottom: .2px solid #333;
+  border-top: .2px solid #333;
+  padding: 10px 10px;
+  /* position: absolute; */
+  }
+
+  .header > * {
+    margin: 0px 5px;
+  }
+
+  .header > div {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0px 5px;
+    width: 300px;
+    align-items: center;
+    justify-content: space-evenly;
+  }
 
 nav.bottom {
   bottom: 0;
@@ -307,7 +342,7 @@ nav.bottom > button {
   width: 400px;
   right: 0;
   border: 0;
-  background-color: #f8cd04;
+  background-color: #f7da22;
   color: #333;
   font-size: 20px;
 }
@@ -331,7 +366,7 @@ nav.top button {
 
 .loader {
   border: 16px solid #f3f3f3;
-  border-top: 16px solid #f8cd04;
+  border-top: 16px solid #f7da22;
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -346,30 +381,38 @@ nav.top button {
 }
 
 .home {
-  margin: 50px;
-  padding: 70px 60px;
-  background-color: #f8cd04;
-  border-radius: 5px;
-  border: 2px solid black;
+  /* margin: 50px; */
+  position: fixed;
+  padding: 130px 60px;
+  width: 100vw;
+  height: auto;
+  background-color: #f7da22;
+  /* overflow: hidden; */
+  margin: 0px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow-y:scroll;
+  overflow-x:hidden;
 }
 
 .home button {
   background-color: black;
   color: white;
   border-radius: 20px;
-  padding: 10px;
+  padding: 10px 15px;
   margin: 30px 10px 10px 10px;
   border-width: 0px;
   min-width: 140px;
+  font-weight: 400;
 }
 
 #nylogo {
-  width: 100px;
+  width: 50%;
+  height: 50%;
 }
 
-.header {
-  margin-top: 20px;
-}
 
 .userLogin {
   display: flex;
@@ -402,7 +445,7 @@ nav.top button {
 
 .oneGame {
   margin: 30px;
-  background-color: #f8cd04;
+  background-color: #f7da22;
   padding: 20px;
   min-width: 300px;
   color: black;
@@ -428,12 +471,67 @@ nav.top button {
   position: fixed;
   height: 100%;
   width: 200px;
-  margin: 0px;
+  /* margin: 0px; */
   padding-top: 40px;
   left: 0;
   background-color: white;
   z-index: 2;
+  border-right: .2px solid #f3f3f3;
+  /* animation-duration: .5s;
+  animation-name: slidein; */
+  transform: translateX(-200px);
+  
 }
+
+.sideMenu.in {
+  animation: in 0.5s both;
+  -webkit-animation: in 0.5s both;
+}
+
+.sideMenu.out {
+  animation: out 0.5s both;
+  -webkit-animation: out 0.5s both;
+}
+
+@-webkit-keyframes in {
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes in {
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-200px);
+  }
+}
+@keyframes out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-200px);
+  }
+}
+
+/* @keyframes slidein {
+  from {
+    left: -200px;
+    
+  }
+
+  to {
+    left: 0;
+  }
+} */
+
 .sideMenu > a {
   color: #333;
   text-align: center;
@@ -444,7 +542,7 @@ nav.top button {
 }
 
 .sideMenu > a:hover {
-  color: #f8cd04;
+  color: #f7da22;
 }
 #playerName {
   display: none;
@@ -452,7 +550,7 @@ nav.top button {
 
 @media only screen and (max-width: 1000px) {
   .right-container {
-    height: auto;
+    height: 200px;
     padding-top: 10px;
     margin-bottom: 40px;
   } 
@@ -472,14 +570,12 @@ nav.top button {
 
   nav.top {
     flex-wrap: wrap;
-    /* justify-content: flex-end; */
   }
 }
 
 @media only screen and (max-width: 550px) {
   .home {
-    margin: 30px 10px;
-    padding: 40px 30px;
+    padding: 100px 30px;
   }
   h1 {
     font-size: 25px;
@@ -501,9 +597,9 @@ nav.top button {
     height: 100%;
   }
 
-  .messageContainer, #new-message-form {
-    right: auto;
-    left: auto;
+  .messageContainer, #new-message-form, nav.bottom > button  {
+    /* right: auto;
+    left: auto; */
     width: 300px;
   }
 
