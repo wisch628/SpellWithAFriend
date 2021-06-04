@@ -13,7 +13,7 @@ class Home extends React.Component {
             <div className="home">
                 <Header />
             <div>
-            <img className="bee" src="https://lh3.googleusercontent.com/proxy/pgMGfjCPQ53av-WC8rmIrXLCE_ZOyRjchn090A76ssBM7kXsjnj7ddA6lWJesRYJp-yBXuZs_9aHF5aCDtnoZSAE4lDJAD0"/>
+            <img className="bee" src={window.location.origin + '/bee-clipart.png'}/>
             {isLoggedIn ? (
      <div>
      <h1>{`Welcome, ${this.props.user.firstName}!`}</h1>
