@@ -50,12 +50,12 @@ export class NewGame extends React.Component {
     }
 
     render() {
-        const colors = ['Red', 'Orange', 'Green', 'Blue', 'Purple'];
+        // const colors = ['Red', 'Orange', 'Green', 'Blue', 'Purple'];
         //const userColors = this.props.gameUsers || [];
         return (
-            <div>
-                <Header />
             <div className="home">
+                <Header />
+            <div>
                 {this.state.redirect ? (<Redirect push to={`/allgames/${this.props.user.id}`}/>) : null}
                 <div className="userLogin">
                     <label>Select your color</label>

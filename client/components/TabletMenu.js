@@ -5,7 +5,7 @@ import { logOutThunk } from "../redux/auth";
 
 const TabletMenu = (props) => {
   return (
-    <div className="sideMenu">
+    <div className={["sideMenu", props.classProp].join(" ")}>
       <h4 id="playerName">
         Player:{" "}
         <span

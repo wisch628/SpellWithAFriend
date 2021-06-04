@@ -44,7 +44,7 @@ class Routes extends React.Component {
           </Switch>
         ) : (
           <Switch>
-          <Route path="/" component={Login} />
+          <Route path="/" component={Home} />
           <Redirect to="/" />
           </Switch>
 
