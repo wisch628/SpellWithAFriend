@@ -118,7 +118,6 @@ class Puzzle extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.state.loading === true) {
       return <Loading />;
     } else {

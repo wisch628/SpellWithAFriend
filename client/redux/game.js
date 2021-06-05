@@ -59,7 +59,6 @@ export const joinGameThunkCreator = (userId, color, gameCode, history) => {
             const response = await Axios.post(`/api/game/join/${gameCode}`, {userId: userId, color: color});
             const game = response.data;
             dispatch(joinGame(game));
-            console.log("game", game);
             const responseUsers = await Axios.get(`/api/user/game/${game.id}`);
             if (responseUsers.data) {
              socket.emit('new-user', responseUsers.data);
