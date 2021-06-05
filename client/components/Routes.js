@@ -38,7 +38,7 @@ class Routes extends React.Component {
             <Route exact path="/new" component={NewGame} />
             <Route exact path="/join" component={NewGame} />
             <Route exact path="/allgames/" component={AllGames} />
-            <Route exact path="/data" component={Data} />
+            {/* <Route exact path="/data" component={Data} /> */}
             <Route path={'/play/:gameId/'} component={Puzzle} />
             <Route component={Error} />
           </Switch>
