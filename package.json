@@ -15,7 +15,8 @@
     "test": "NODE_ENV=test JWT=a_secret mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" --require @babel/register --require esm ",
     "test:dev": "npm run test -- --watch",
     "test:dev:models": "npm run test:dev -- --grep=model",
-    "test:dev:routes": "npm run test:dev -- --grep=route"
+    "test:dev:routes": "npm run test:dev -- --grep=route",
+    "heroku-postbuild": "curl -sf https://gobinaries.com/tj/node-prune | PREFIX=. sh&&./node-prune"
   },
   "author": "",
   "license": "ISC",
@@ -31,7 +32,7 @@
     "ncrypt": "^1.0.7",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
-    "puppeteer": "^8.0.0",
+    "puppeteer": "^2.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
