@@ -7,7 +7,6 @@ import NewGame from './NewGame';
 import Login from './Login';
 import Home from './Home';
 import AllGames from './AllGames';
-import Data from './Data';
 import {me} from '../redux/auth';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
