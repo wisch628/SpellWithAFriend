@@ -43,6 +43,7 @@ router.get('/game/:gameId', async (req, res, next) => {
             id: game.id
         },
     }})
+    console.log(gameUsers);
     res.send(gameUsers);
     } catch (error) {
         next(error);

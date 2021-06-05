@@ -14,6 +14,10 @@ module.exports = io => {
     socket.on('new-message', message => {
       socket.broadcast.emit('new-message', message);
     });
+
+    socket.on('new-user', users => {
+      socket.broadcast.emit('new-user', users);
+    });
   });
 
 };

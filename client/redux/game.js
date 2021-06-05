@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { handleNotifications } from './toast';
+import socket from "../socket";
 
 const CREATE_GAME = 'CREATE_GAME';
 const GET_GAME = 'GET_GAME';
@@ -58,8 +59,14 @@ export const joinGameThunkCreator = (userId, color, gameCode, history) => {
             const response = await Axios.post(`/api/game/join/${gameCode}`, {userId: userId, color: color});
             const game = response.data;
             dispatch(joinGame(game));
+            console.log("game", game);
+            const responseUsers = await Axios.get(`/api/user/game/${game.id}`);
+            if (responseUsers.data) {
+             socket.emit('new-user', responseUsers.data);
+            }
             history.push(`/play/${game.id}/`)
         } catch (err) {
+            console.log(err);
             const toast = {type: 'error', message: err.response.data};
             dispatch(handleNotifications(toast))
         }
