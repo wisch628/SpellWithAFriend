@@ -1,10 +1,10 @@
 {
-  "name": "spelling-bee",
+  "name": "spellwithafriend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --mode production",
     "build:dev": "npm run build -- --watch --mode=development",
     "seed": "node script/seed.js",
     "start": "node server",
@@ -16,9 +16,10 @@
     "test:dev": "npm run test -- --watch",
     "test:dev:models": "npm run test:dev -- --grep=model",
     "test:dev:routes": "npm run test:dev -- --grep=route",
-    "heroku-postbuild": "curl -sf https://gobinaries.com/tj/node-prune | PREFIX=. sh&&./node-prune"
+    "heroku-postbuild": "curl -sf https://gobinaries.com/tj/node-prune | PREFIX=. sh&&./node-prune",
+    "deploy": "aws s3 sync public/ s3://spellwithafriend"
   },
-  "author": "",
+  "author": "Hannah Wischnia",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
