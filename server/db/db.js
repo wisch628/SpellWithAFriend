@@ -20,6 +20,12 @@ if (process.env.DATABASE_URL) {
   };
 }
 
+
+
 const db = new Sequelize(
-process.env.DATABASE_URL || `postgres://localhost:5432/spelling-bee`, config)
-module.exports = db
+ "postgres://wisch628:ihatepasswords@18.118.36.192:5432/spelling-bee", config)
+  module.exports = db
+
+// const db = new Sequelize(
+// process.env.DATABASE_URL || `postgres://localhost:5432/spelling-bee`, config)
+// module.exports = db
