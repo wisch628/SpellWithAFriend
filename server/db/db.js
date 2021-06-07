@@ -12,20 +12,14 @@ if (process.env.LOGGING === 'true') {
 }
 
 //https://stackoverflow.com/questions/61254851/heroku-postgres-sequelize-no-pg-hba-conf-entry-for-host
-if (process.env.DATABASE_URL) {
-  config.dialectOptions = {
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  };
-}
-
-
+// if (process.env.DATABASE_URL) {
+//   config.dialectOptions = {
+//     // ssl: {
+//     //   rejectUnauthorized: false,
+//     // },
+//   };
+// }
 
 const db = new Sequelize(
- "postgres://wisch628:ihatepasswords@18.118.36.192:5432/spelling-bee", config)
-  module.exports = db
-
-// const db = new Sequelize(
-// process.env.DATABASE_URL || `postgres://localhost:5432/spelling-bee`, config)
-// module.exports = db
+process.env.DATABASE_URL || `postgres://localhost:5432/spelling-bee`, config)
+module.exports = db
