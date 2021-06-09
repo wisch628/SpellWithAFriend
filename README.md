@@ -5,4 +5,4 @@ Spell With a Friend (SWAF) is a web application that allows users to play today'
 
 SWAF is built using React and Redux on the frontend and Node.js, Express, Sequelize, and PostgreSQL on the backend. The live data is fetched from the NYTimes using Puppeteer, and the live user updates and chat are built using Socket.io.
 
-You can play SWAF at https://spellwithafriend.herokuapp.com/.
+You can play SWAF at http://spellwithafriend.com/.
