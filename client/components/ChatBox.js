@@ -15,7 +15,9 @@ class MessagesList extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
   }
+  messagesEndRef = React.createRef()
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
@@ -30,11 +32,17 @@ class MessagesList extends React.Component {
       currentMessage: "",
     });
   }
-
+  componentDidUpdate () {
+    this.scrollToBottom("smooth");
+  }
   async componentDidMount() {
     await this.props.fetchInitialMessages(Number(this.props.game.id));
+    this.scrollToBottom("auto");
   }
 
+  scrollToBottom = (behavior) => {
+    this.messagesEnd.scrollIntoView({ behavior: behavior });
+  }
   render() {
     const messages = this.props.messages || [];
     return (
@@ -72,6 +80,9 @@ class MessagesList extends React.Component {
                 )
               )
             : null}
+           <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.messagesEnd = el; }}>
+        </div>
         </div>
         <form
           id="new-message-form"

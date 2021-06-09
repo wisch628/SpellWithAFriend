@@ -81,8 +81,8 @@ h5 {
 .right-container {
   border-radius: 10px;
   border: 1px solid #e6e6e6;
-  height: 300px;
   padding: 30px;
+  height: fit-content;
   
 }
 
@@ -141,6 +141,7 @@ input {
   display: flex;
   flex-wrap: wrap;
   margin-top: 40px;
+  height: fit-content;
 }
 
 .Red {
@@ -202,12 +203,14 @@ input {
   margin-bottom: 50px;
   background-color: white;
   z-index: 1;
-  max-height: 500px;
+  max-height: 400px;
   overflow: auto;
 }
 
 .innerMessages {
-  margin-bottom: 70px;
+  margin-bottom: 50px;
+  max-height: 400px;
+  overflow: scroll;
 }
 
 .message {
@@ -562,7 +565,6 @@ margin-top: 15%;
 
 @media only screen and (max-width: 1000px) {
   .right-container {
-    height: 200px;
     padding-top: 10px;
     margin-bottom: 40px;
   } 
